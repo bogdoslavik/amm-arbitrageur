@@ -24,8 +24,9 @@ export async function getBnbPrice(): Promise<number> {
       return bnbPrice;
     }
     const res = await axios.get(config.bscScanUrl);
-    bnbPrice = parseFloat(res.data.result.ethusd);
-    log.info(`BNB price: $${bnbPrice}`);
+    console.log('res.data', res.data);
+    bnbPrice = parseFloat(res.data.result.maticusd); //TODO net
+    log.info(`MATIC price: $${bnbPrice}`);
     return bnbPrice;
   });
 }

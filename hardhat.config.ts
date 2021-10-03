@@ -1,6 +1,7 @@
 import { task, HardhatUserConfig } from 'hardhat/config';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
+import "@nomiclabs/hardhat-etherscan";
 
 import deployer from './.secret';
 
@@ -17,9 +18,11 @@ const forks: {[index: string]:any} = {
 }
 
 const fork_RPC = forks[deployer.fork];
+console.log('deployer.fork', deployer.fork);
 
 const config: HardhatUserConfig = {
   solidity: { version: '0.7.6' },
+  etherscan: { apiKey: 'M7R9SIH4AW39UVCPPQKV5IIN9UPIPRPEJ9' },
   networks: {
     hardhat: {
       // loggingEnabled: true,

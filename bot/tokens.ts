@@ -33,8 +33,8 @@ const maticBaseTokens: Tokens = {
   WBTC  : '0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6',
    */
   wmatic: { symbol: 'WMATIC', address: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' },
-  usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' },
-  usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' },
+  // usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' },
+  // usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' },
 };
 
 const maticQuoteTokens: Tokens = {
@@ -251,6 +251,7 @@ async function updatePairs(network: Network): Promise<ArbitragePair[]> {
       }
       if (tokenPair.pairs.length >= 2) {
         tokenPairs.push(tokenPair);
+        console.log('tokenPair', tokenPair.symbols);
       }
     }
   }
@@ -270,6 +271,7 @@ async function updatePairs(network: Network): Promise<ArbitragePair[]> {
           pairs: pair,
         };
         allPairs.push(arbitragePair);
+        console.log('arbitragePair', arbitragePair);
       }
     }
   }

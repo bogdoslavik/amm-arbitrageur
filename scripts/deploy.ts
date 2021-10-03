@@ -5,6 +5,7 @@ import deployer from '../.secret';
 
 // WBNB address on BSC, WETH address on ETH
 const WethAddr = addressbook.matic.WMATIC;
+console.log('WethAddr', WethAddr);
 
 async function main() {
   await run('compile');

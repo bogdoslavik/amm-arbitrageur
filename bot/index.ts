@@ -15,7 +15,7 @@ function sleep(ms: number) {
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
   let price = 1;
-  if (baseTokens.wbnb.address == address) {
+  if (baseTokens.wmatic.address == address) { //TODO net
     price = await getBnbPrice();
   }
   let profit = parseFloat(ethers.utils.formatEther(profitWei));
@@ -25,6 +25,8 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   return profit - gasCost;
 }
 
+let turn = 0;
+let progress = '-\\|/';
 function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
   const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
   return async function arbitrage(pair: ArbitragePair) {
@@ -35,20 +37,22 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
       baseToken: string;
     };
     try {
-      res = await flashBot.getProfit(pair0, pair1);
+      res = await flashBot.getProfit(pair0, pair1, {gasLimit: 250000});
       log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
     } catch (err) {
-      log.debug(err);
+      log.error(pair.symbols, err);
       return;
     }
 
     if (res.profit.gt(BigNumber.from('0'))) {
       const netProfit = await calcNetProfit(res.profit, res.baseToken, baseTokens);
-      if (netProfit < config.minimumProfit) {
+      console.log(progress[turn%progress.length ], turn++, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
+      // console.log(pair.symbols, netProfit );
+      if (!netProfit || netProfit < config.minimumProfit) {
         return;
       }
 
-      log.info(`Calling flash arbitrage, net profit: ${netProfit}`);
+      log.info(`Calling flash arbitrage for ${pair.symbols}, net profit: ${netProfit}`);
       try {
         // lock to prevent tx nonce overlap
         await lock.acquire('flash-bot', async () => {
