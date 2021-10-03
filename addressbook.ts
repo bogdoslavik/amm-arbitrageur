@@ -1,5 +1,6 @@
 const bsc: {[index: string]:any} = {
-  TestBase: '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', // WBNB
+  WBNB     : '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', // WBNB
+  TestBase : '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c', // WBNB
   TestQuote: '0x55d398326f99059ff775485246999027b3197955', // USDT
 
   dex1FactoryAddr: '0x3CD1C46068dAEa5Ebb0d3f55F6915B10648062B8', //mdexFactoryAddr

@@ -1,11 +1,12 @@
 import { ethers, run } from 'hardhat';
 import { FlashBot } from '../typechain/FlashBot';
+import deployer from './../.secret';
 
 async function main() {
   await run('compile');
   const flashBot: FlashBot = (await ethers.getContractAt(
     'FlashBot',
-    'CONTRACT ADDRESS' // contract address
+    deployer.bot // contract address
   )) as FlashBot;
 
   const owner = await flashBot.owner();

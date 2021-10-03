@@ -1,9 +1,10 @@
 import { ethers, run } from 'hardhat';
+import * as addressbook from '../addressbook';
 
 import deployer from '../.secret';
 
 // WBNB address on BSC, WETH address on ETH
-const WethAddr = '0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c';
+const WethAddr = addressbook.matic.WMATIC;
 
 async function main() {
   await run('compile');
