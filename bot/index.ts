@@ -8,6 +8,7 @@ import { Network, tryLoadPairs, getTokens } from './tokens';
 import { getBnbPrice } from './basetoken-price';
 import log from './log';
 import config from './config';
+import lodash from 'lodash';
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -15,7 +16,7 @@ function sleep(ms: number) {
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
   let price = 1;
-  if (baseTokens.wmatic.address == address) { //TODO net
+  if (baseTokens.wmatic && baseTokens.wmatic.address == address) {
     price = await getBnbPrice();
   }
   let profit = parseFloat(ethers.utils.formatEther(profitWei));
@@ -27,6 +28,8 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
 
 let turn = 0;
 let progress = '-\\|/';
+
+
 function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
   const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
   return async function arbitrage(pair: ArbitragePair) {
@@ -37,16 +40,21 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
       baseToken: string;
     };
     try {
-      res = await flashBot.getProfit(pair0, pair1, {gasLimit: 250000});
+      res = await flashBot.getProfit(pair0, pair1);
       log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
     } catch (err) {
+      if (err.message.startsWith('cannot estimate gas;')) {
+        log.info(`Cannot estimate gas for ${pair.symbols}, removed`)
+        lodash.remove(pairs, p => p==pair);
+        return;
+      }
       log.error(pair.symbols, err);
       return;
     }
 
     if (res.profit.gt(BigNumber.from('0'))) {
       const netProfit = await calcNetProfit(res.profit, res.baseToken, baseTokens);
-      console.log(progress[turn%progress.length ], turn++, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
+      console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
       // console.log(pair.symbols, netProfit );
       if (!netProfit || netProfit < config.minimumProfit) {
         return;
@@ -73,9 +81,11 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
   };
 }
 
+let pairs: any;
+
 async function main() {
   const net = Network.MATIC
-  const pairs = await tryLoadPairs(net);
+  pairs = await tryLoadPairs(net);
   const flashBot = (await ethers.getContractAt('FlashBot', config.contractAddr)) as FlashBot;
   const [baseTokens] = getTokens(net);
 
@@ -93,6 +103,7 @@ async function main() {
 main()
   .then(() => process.exit(0))
   .catch((err) => {
-    log.error(err);
+    log.error('MAIN:', err);
+    throw err;
     process.exit(1);
   });

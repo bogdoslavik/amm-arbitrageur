@@ -48,7 +48,6 @@ const config: HardhatUserConfig = {
       url: matic_RPC,
       chainId: 137,
       accounts: [deployer.private],
-      // gas: 17500000
     },
   },
   mocha: {

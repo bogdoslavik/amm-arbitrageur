@@ -168,27 +168,6 @@
     ]
   },
   {
-    "symbols": "FISH-WMATIC",
-    "pairs": [
-      "0xcBF6f78981e63Ef813cb71852d72A060b583EECF",
-      "0x289cf2B63c5Edeeeab89663639674d9233E8668E"
-    ]
-  },
-  {
-    "symbols": "FISH-WMATIC",
-    "pairs": [
-      "0xcBF6f78981e63Ef813cb71852d72A060b583EECF",
-      "0x44825bf3B74695bD72ED247D62DD755e67B7ED87"
-    ]
-  },
-  {
-    "symbols": "FISH-WMATIC",
-    "pairs": [
-      "0x289cf2B63c5Edeeeab89663639674d9233E8668E",
-      "0x44825bf3B74695bD72ED247D62DD755e67B7ED87"
-    ]
-  },
-  {
     "symbols": "OMEN-WMATIC",
     "pairs": [
       "0xe9Bb87c33d1607B06fb3988b31E9601BD21Ff3bD",
@@ -207,13 +186,6 @@
     "pairs": [
       "0x3F8a51fa5a41B0A352A00cC2d41af8141a597195",
       "0x2A7D27d8E4fcD52F4D285BF15c227A26BcB36e76"
-    ]
-  },
-  {
-    "symbols": "WHIRL-WMATIC",
-    "pairs": [
-      "0x96ceD02396BFA0E8c8A3218B5913fd8Db2EBd4b9",
-      "0x528b0B602888931d8307D36D50B1876Af8DC94Fa"
     ]
   },
   {
