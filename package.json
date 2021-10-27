@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "prettier": "prettier --write 'contracts/**/*.sol'",
-    "bot": "hardhat run --network matic bot/index.ts"
+    "bot": "hardhat run --network matic bot/index.ts",
+    "addbasetoken": "hardhat run --network matic scripts/add-basetoken.ts"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.0",

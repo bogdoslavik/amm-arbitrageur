@@ -24,7 +24,7 @@ const config: Config = {
   logLevel: 'info',
   concurrency: 50,
   // minimumProfit: 50, // in USD
-  minimumProfit: 0.1, // in USD
+  minimumProfit: 1, // in USD
   gasPrice: gasPrice,
   gasLimit: gasLimit,
   bscScanUrl: bscScanUrl,

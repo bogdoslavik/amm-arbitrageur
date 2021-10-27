@@ -1,3 +1,4 @@
+//run cmd: hardhat run --network matic scripts/add-basetoken.ts
 import { ethers } from 'hardhat';
 import { FlashBot } from '../typechain/FlashBot';
 import deployer from './../.secret';
@@ -10,7 +11,10 @@ async function main(token: string) {
     signer
   )) as FlashBot;
 
-  //token = '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063';
+  const tokens = await flashBot.getBaseTokens();
+  console.log('base tokens before', tokens);
+
+  token = ''; // TODO PUT NEW BASE TOKEN ADDRESS HERE
   console.log('token', token);
   if (!token) {
     console.log('error: token address is not specified');
@@ -19,6 +23,8 @@ async function main(token: string) {
   const result = await flashBot.addBaseToken(token);
   console.log('tx hash:', result.hash);
   console.log(`Base token added: ${token}`);
+  const tokensAfter = await flashBot.getBaseTokens();
+  console.log('base tokens after', tokensAfter);
 }
 
 const args = process.argv.slice(2);
