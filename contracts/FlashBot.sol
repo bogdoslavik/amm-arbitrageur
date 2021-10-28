@@ -73,7 +73,7 @@ contract FlashBot is Ownable {
 
     function withdraw() external {
         uint256 balance = address(this).balance;
-        if (balance > 0) {F
+        if (balance > 0) {
             payable(owner()).transfer(balance);
             emit Withdrawn(owner(), balance);
         }
