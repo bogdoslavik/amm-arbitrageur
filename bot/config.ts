@@ -13,7 +13,7 @@ interface Config {
 
 const contractAddr = deployer.bot; // flash bot contract address
 const gasPrice = utils.parseUnits('20', 'gwei');
-const gasLimit = 300000;
+const gasLimit = 3000000;
 
 const bscScanApiKey = deployer.polygonScan; // bscscan API key
 // const bscScanUrl = `https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=${bscScanApiKey}`;

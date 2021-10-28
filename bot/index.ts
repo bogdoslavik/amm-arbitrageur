@@ -40,7 +40,10 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
       baseToken: string;
     };
     try {
-      res = await flashBot.getProfit(pair0, pair1, {});
+      res = await flashBot.getProfit(pair0, pair1, {
+        gasPrice: config.gasPrice,
+        gasLimit: config.gasLimit,
+      });
       log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
     } catch (err) {
       if (err.message.startsWith('cannot estimate gas;')) {
@@ -94,7 +97,7 @@ async function main() {
     await pool({
       collection: pairs,
       task: arbitrageFunc(flashBot, baseTokens),
-      // maxConcurrency: config.concurrency,
+      maxConcurrency: config.concurrency,
     });
     await sleep(1000);
   }

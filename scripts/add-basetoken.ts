@@ -21,6 +21,7 @@ async function main(token: string) {
     return;
   }
   const result = await flashBot.addBaseToken(token);
+  // const result = await flashBot.removeBaseToken(token);
   console.log('tx hash:', result.hash);
   console.log(`Base token added: ${token}`);
   const tokensAfter = await flashBot.getBaseTokens();
