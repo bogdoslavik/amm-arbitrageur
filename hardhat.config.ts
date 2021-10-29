@@ -1,7 +1,9 @@
 import { task, HardhatUserConfig } from 'hardhat/config';
 import '@typechain/hardhat';
 import '@nomiclabs/hardhat-waffle';
+import '@nomiclabs/hardhat-ethers';
 import "@nomiclabs/hardhat-etherscan";
+import "hardhat-deploy";
 
 import deployer from './.secret';
 
@@ -22,7 +24,6 @@ console.log('deployer.fork', deployer.fork);
 
 const config: HardhatUserConfig = {
   solidity: { version: '0.7.6' },
-  etherscan: { apiKey: 'M7R9SIH4AW39UVCPPQKV5IIN9UPIPRPEJ9' },
   networks: {
     hardhat: {
       // loggingEnabled: true,
@@ -49,6 +50,11 @@ const config: HardhatUserConfig = {
       chainId: 137,
       accounts: [deployer.private],
     },
+  },
+  namedAccounts: {
+    deployer: {
+      default: 0, // here this will by default take the first account as deployer
+    }
   },
   mocha: {
     timeout: 40000,
