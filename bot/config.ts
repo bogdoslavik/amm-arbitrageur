@@ -13,7 +13,7 @@ interface Config {
 }
 
 const contractAddr = deployer.bot; // flash bot contract address
-const gasPrice = utils.parseUnits('75', 'gwei');
+const gasPrice = utils.parseUnits('50', 'gwei');
 const gasLimit = 3000000;
 const gasUsage = 550000;
 
@@ -26,7 +26,7 @@ const config: Config = {
   logLevel: 'info',
   concurrency: 50,
   // minimumProfit: 50, // in USD
-  minimumProfit: 1, // in USD
+  minimumProfit: 2, // in USD
   gasPrice: gasPrice,
   gasLimit: gasLimit,
   gasUsage: gasUsage,
