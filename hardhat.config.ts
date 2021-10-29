@@ -22,7 +22,6 @@ console.log('deployer.fork', deployer.fork);
 
 const config: HardhatUserConfig = {
   solidity: { version: '0.7.6' },
-  etherscan: { apiKey: 'M7R9SIH4AW39UVCPPQKV5IIN9UPIPRPEJ9' },
   networks: {
     hardhat: {
       // loggingEnabled: true,
