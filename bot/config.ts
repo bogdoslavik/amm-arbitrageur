@@ -7,13 +7,15 @@ interface Config {
   minimumProfit: number;
   gasPrice: BigNumber;
   gasLimit: BigNumberish;
+  gasUsage: BigNumberish;
   bscScanUrl: string;
   concurrency: number;
 }
 
 const contractAddr = deployer.bot; // flash bot contract address
-const gasPrice = utils.parseUnits('50', 'gwei');
+const gasPrice = utils.parseUnits('75', 'gwei');
 const gasLimit = 3000000;
+const gasUsage = 550000;
 
 const bscScanApiKey = deployer.polygonScan; // bscscan API key
 // const bscScanUrl = `https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=${bscScanApiKey}`;
@@ -27,6 +29,7 @@ const config: Config = {
   minimumProfit: 1, // in USD
   gasPrice: gasPrice,
   gasLimit: gasLimit,
+  gasUsage: gasUsage,
   bscScanUrl: bscScanUrl,
 };
 

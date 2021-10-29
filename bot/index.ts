@@ -22,7 +22,8 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   let profit = parseFloat(ethers.utils.formatEther(profitWei));
   profit = profit * price;
 
-  const gasCost = price * parseFloat(ethers.utils.formatEther(config.gasPrice)) * (config.gasLimit as number);
+  const gasCost = price * parseFloat(ethers.utils.formatEther(config.gasPrice)) *
+    (config.gasUsage as number);
   return profit - gasCost;
 }
 
@@ -33,6 +34,7 @@ let progress = '-\\|/';
 function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
   const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
   return async function arbitrage(pair: ArbitragePair) {
+    // const [pair0, pair1] = pair.pairs;
     const [pair0, pair1] = pair.pairs;
 
     let res: [BigNumber, string] & {
@@ -47,7 +49,8 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
       log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
     } catch (err) {
       if (err.message.startsWith('cannot estimate gas;')) {
-        console.log(`Cannot estimate gas for ${pair.symbols}`, ' '.repeat(20), '\u001b[1A')
+        //console.log(`Cannot estimate gas for ${pair.symbols}`)
+        // console.log(`Cannot estimate gas for ${pair.symbols}`, ' '.repeat(20), '\u001b[1A')
         //lodash.remove(pairs, p => p==pair);
         return;
       }
@@ -58,7 +61,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
     if (res.profit.gt(BigNumber.from('0'))) {
       const netProfit = await calcNetProfit(res.profit, res.baseToken, baseTokens);
       console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
-      // console.log(pair.symbols, netProfit );
+      // console.log(pair, netProfit );
       if (!netProfit || netProfit < config.minimumProfit) {
         return;
       }
