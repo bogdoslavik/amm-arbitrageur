@@ -47,7 +47,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
       log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
     } catch (err) {
       if (err.message.startsWith('cannot estimate gas;')) {
-        log.debug(`Cannot estimate gas for ${pair.symbols}`)
+        console.log(`Cannot estimate gas for ${pair.symbols}`, ' '.repeat(20), '\u001b[1A')
         //lodash.remove(pairs, p => p==pair);
         return;
       }

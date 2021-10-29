@@ -36,10 +36,10 @@ const maticBaseTokens: Tokens = {
   wmatic: { symbol: 'WMATIC', address: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' }, //+
   usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' }, //+
   usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' }, //+
-  dai:    { symbol: 'DAI',    address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063' }, //+
+  tetu:   { symbol: 'TETU',   address: '0x255707B70BF90aa112006E1b07B9AeA6De021424' }, //+
   // weth:   { symbol: 'WETH',   address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' },
   // wbtc:   { symbol: 'WBTC',   address: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6' },
-  // tetu:   { symbol: 'TETU',   address: '0x255707B70BF90aa112006E1b07B9AeA6De021424' },
+  // dai:    { symbol: 'DAI',    address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063' },
 };
 
 const maticQuoteTokens: Tokens = {
@@ -61,8 +61,8 @@ const maticQuoteTokens: Tokens = {
 
   tetu:   { symbol: 'TETU',   address: '0x255707B70BF90aa112006E1b07B9AeA6De021424' },
   // wmatic: { symbol: 'WMATIC', address: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' },
-  // usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' },
-  // usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' },
+  usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' },
+  usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' },
   weth:   { symbol: 'WETH',   address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' },
   wbtc:   { symbol: 'WBTC',   address: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6' },
   // XXXX: { symbol: 'XXXX', address: '0x0000000000000000000000000000000000000000' },
