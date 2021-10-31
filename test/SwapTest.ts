@@ -45,7 +45,7 @@ describe('Flashswap', () => {
       dex2PairAddr = await dex2Factory.getPair(Base, Quote);
     });
 
-    it('do flash swap between Dex2 and Dex1', async () => {
+    it.only('do flash swap between Dex2 and Dex1', async () => {
       // transfer 100000 to mdex pair
       const amountEth = ethers.utils.parseEther('100000');
       await weth.deposit({ value: amountEth });

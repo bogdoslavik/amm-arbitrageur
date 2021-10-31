@@ -100,9 +100,9 @@ async function main() {
     await pool({
       collection: pairs,
       task: arbitrageFunc(flashBot, baseTokens),
-      maxConcurrency: config.concurrency,
+      // maxConcurrency: config.concurrency,
     });
-    await sleep(1000);
+    await sleep(30000);
   }
 }
 

@@ -19,9 +19,9 @@ const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 // !!! Factory addresses
 const maticDexes: AmmFactories = {
   tetu : '0x684d8c187be836171a1Af8D533e4724893031828',
-  quick: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
   sushi: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
-  wault: '0xa98ea6356A316b44Bf710D5f9b6b4eA0081409Ef',
+  // quick: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
+  // wault: '0xa98ea6356A316b44Bf710D5f9b6b4eA0081409Ef',
 };
 
 const maticBaseTokens: Tokens = {
@@ -66,7 +66,7 @@ const maticQuoteTokens: Tokens = {
   weth:   { symbol: 'WETH',   address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' },
   wbtc:   { symbol: 'WBTC',   address: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6' },
 
-  AMAAVE: { symbol: 'AMAAVE', address: '0x1d2a0e5ec8e5bbdca5cb219e649b565d8e5c3360' },
+ /* AMAAVE: { symbol: 'AMAAVE', address: '0x1d2a0e5ec8e5bbdca5cb219e649b565d8e5c3360' },
   AMDAI: { symbol: 'AMDAI', address: '0x27f8d03b3a2196956ed754badc28d73be8830a6e' },
   AMUSDT: { symbol: 'AMUSDT', address: '0x60d55f02a771d515e077c9c2403a1ef324885cec' },
   AMWBTC: { symbol: 'AMWBTC', address: '0x5c2ed810328349100a66b82b78a1791b101c9d61' },
@@ -149,6 +149,7 @@ const maticQuoteTokens: Tokens = {
   MIMATIC: { symbol: 'MIMATIC', address: '0xa3fa99a148fa48d14ed51d610c367c61876997f1' },
   DINO: { symbol: 'DINO', address: '0xaa9654becca45b5bdfa5ac646c939c62b527d394' },
   // XXXX: { symbol: 'XXXX', address: '0x0000000000000000000000000000000000000000' },
+*/
 };
 
 

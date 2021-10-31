@@ -8,11 +8,11 @@ const bsc: {[index: string]:any} = {
 }
 
 const matic: {[index: string]:any} = {
-  TestBase: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', // WMATIC
-  TestQuote: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F', // USDT
+  TestBase : '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270', // WMATIC
+  TestQuote: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619', // WETH
 
   dex1FactoryAddr: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4', //SushiSwap
-  dex2FactoryAddr: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32', //QuickSwap
+  dex2FactoryAddr: '0x684d8c187be836171a1af8d533e4724893031828', //TetuSwap
 
   SushiSwap: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
   QuickSwap: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',

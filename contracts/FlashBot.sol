@@ -43,6 +43,8 @@ contract FlashBot is Ownable {
     using SafeERC20 for IERC20;
     using EnumerableSet for EnumerableSet.AddressSet;
 
+    uint constant private _PRECISION = 10000;
+
     // ACCESS CONTROL
     // Only the `permissionedPairAddress` may call the `uniswapV2Call` function
     address permissionedPairAddress = address(1);
@@ -60,15 +62,6 @@ contract FlashBot is Ownable {
     constructor(address _WETH) {
         WETH = _WETH;
         baseTokens.add(_WETH);
-    }
-
-    receive() external payable {}
-
-    /// @dev Redirect uniswap callback function
-    /// The callback function on different DEX are not same, so use a fallback to redirect to uniswapV2Call
-    fallback(bytes calldata _input) external returns (bytes memory) {
-        (address sender, uint256 amount0, uint256 amount1, bytes memory data) = abi.decode(_input[4:], (address, uint256, uint256, bytes));
-        uniswapV2Call(sender, amount0, amount1, data);
     }
 
     function withdraw() external {
@@ -198,9 +191,11 @@ contract FlashBot is Ownable {
             (uint256 amount0Out, uint256 amount1Out) =
                 info.baseTokenSmaller ? (uint256(0), borrowAmount) : (borrowAmount, uint256(0));
             // borrow quote token on lower price pool, calculate how much debt we need to pay demoninated in base token
-            uint256 debtAmount = getAmountIn(borrowAmount, orderedReserves.a1, orderedReserves.b1);
+            uint256 fee1 = getFee(info.lowerPool);
+            uint256 debtAmount = getAmountIn(borrowAmount, orderedReserves.a1, orderedReserves.b1, fee1);
             // sell borrowed quote token on higher price pool, calculate how much base token we can get
-            uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2);
+            uint256 fee2 = getFee(info.higherPool);
+            uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2, fee2);
             require(baseTokenOutAmount > debtAmount, 'Arbitrage fail, no profit');
             console.log('Profit:', (baseTokenOutAmount - debtAmount) / 1 ether);
 
@@ -212,9 +207,12 @@ contract FlashBot is Ownable {
             callbackData.borrowedToken = info.quoteToken;
             callbackData.debtToken = info.baseToken;
             callbackData.debtAmount = debtAmount;
+            console.log('debtAmount', debtAmount);
             callbackData.debtTokenOutAmount = baseTokenOutAmount;
+            console.log('baseTokenOutAmount', baseTokenOutAmount);
 
             bytes memory data = abi.encode(callbackData);
+            console.log('amount0Out, amount1Out', amount0Out, amount1Out);
             IUniswapV2Pair(info.lowerPool).swap(amount0Out, amount1Out, address(this), data);
         }
 
@@ -254,13 +252,15 @@ contract FlashBot is Ownable {
         (bool baseTokenSmaller, , ) = isbaseTokenSmaller(pool0, pool1);
         baseToken = baseTokenSmaller ? IUniswapV2Pair(pool0).token0() : IUniswapV2Pair(pool0).token1();
 
-        (, , OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
+        (address p1, address p2, OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
 
         uint256 borrowAmount = calcBorrowAmount(orderedReserves);
         // borrow quote token on lower price pool,
-        uint256 debtAmount = getAmountIn(borrowAmount, orderedReserves.a1, orderedReserves.b1);
+        uint256 fee1 = getFee(p1);
+        uint256 debtAmount = getAmountIn(borrowAmount, orderedReserves.a1, orderedReserves.b1, fee1);
         // sell borrowed quote token on higher price pool
-        uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2);
+        uint256 fee2 = getFee(p2);
+        uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2, fee2);
         if (baseTokenOutAmount < debtAmount) {
             profit = 0;
         } else {
@@ -363,12 +363,13 @@ contract FlashBot is Ownable {
     function getAmountIn(
         uint256 amountOut,
         uint256 reserveIn,
-        uint256 reserveOut
+        uint256 reserveOut,
+        uint256 fee
     ) internal pure returns (uint256 amountIn) {
         require(amountOut > 0, 'UniswapV2Library: INSUFFICIENT_OUTPUT_AMOUNT');
         require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Library: INSUFFICIENT_LIQUIDITY');
-        uint256 numerator = reserveIn.mul(amountOut).mul(1000);
-        uint256 denominator = reserveOut.sub(amountOut).mul(997);
+        uint256 numerator = reserveIn.mul(amountOut).mul(_PRECISION);
+        uint256 denominator = reserveOut.sub(amountOut).mul(_PRECISION-fee);
         amountIn = (numerator / denominator).add(1);
     }
 
@@ -377,13 +378,37 @@ contract FlashBot is Ownable {
     function getAmountOut(
         uint256 amountIn,
         uint256 reserveIn,
-        uint256 reserveOut
+        uint256 reserveOut,
+        uint256 fee
     ) internal pure returns (uint256 amountOut) {
         require(amountIn > 0, 'UniswapV2Library: INSUFFICIENT_INPUT_AMOUNT');
         require(reserveIn > 0 && reserveOut > 0, 'UniswapV2Library: INSUFFICIENT_LIQUIDITY');
-        uint256 amountInWithFee = amountIn.mul(997);
+        uint256 amountInWithFee = amountIn.mul(_PRECISION-fee);
         uint256 numerator = amountInWithFee.mul(reserveOut);
-        uint256 denominator = reserveIn.mul(1000).add(amountInWithFee);
+        uint256 denominator = reserveIn.mul(_PRECISION).add(amountInWithFee);
         amountOut = numerator / denominator;
     }
+
+    function getFee(address pair) internal view returns(uint) {
+        try IUniswapV2Pair(pair).fee() returns (uint fee) {
+            console.log('fee', fee);
+            return fee;
+        } catch Error(string memory /*reason*/) {
+//        } catch Panic(uint /*errorCode*/) {
+        } catch (bytes memory /*lowLevelData*/) {
+        }
+        return 30;
+    }
+
+    receive() external payable {}
+
+
+    /// @dev Redirect uniswap callback function
+    /// The callback function on different DEX are not same, so use a fallback to redirect to uniswapV2Call
+    fallback(bytes calldata _input) external returns (bytes memory) {
+        (address sender, uint256 amount0, uint256 amount1, bytes memory data) = abi.decode(_input[4:], (address, uint256, uint256, bytes));
+        console.log('falllback uniswapV2Call sender, amount0, amount1', sender, amount0, amount1);
+        uniswapV2Call(sender, amount0, amount1, data);
+    }
+
 }
