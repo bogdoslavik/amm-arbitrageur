@@ -192,9 +192,11 @@ contract FlashBot is Ownable {
                 info.baseTokenSmaller ? (uint256(0), borrowAmount) : (borrowAmount, uint256(0));
             // borrow quote token on lower price pool, calculate how much debt we need to pay demoninated in base token
             uint256 fee1 = getFee(info.lowerPool);
+            console.log('fee1', fee1);
             uint256 debtAmount = getAmountIn(borrowAmount, orderedReserves.a1, orderedReserves.b1, fee1);
             // sell borrowed quote token on higher price pool, calculate how much base token we can get
             uint256 fee2 = getFee(info.higherPool);
+            console.log('fee2', fee2);
             uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2, fee2);
             require(baseTokenOutAmount > debtAmount, 'Arbitrage fail, no profit');
             console.log('Profit:', (baseTokenOutAmount - debtAmount) / 1 ether);
@@ -391,7 +393,6 @@ contract FlashBot is Ownable {
 
     function getFee(address pair) internal view returns(uint) {
         try IUniswapV2Pair(pair).fee() returns (uint fee) {
-            console.log('fee', fee);
             return fee;
         } catch Error(string memory /*reason*/) {
 //        } catch Panic(uint /*errorCode*/) {
