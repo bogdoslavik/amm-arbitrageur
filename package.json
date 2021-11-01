@@ -6,8 +6,9 @@
   "scripts": {
     "prettier": "prettier --write 'contracts/**/*.sol'",
     "bot": "hardhat run --network matic bot/index.ts",
-    "withdraw": "hardhat run --network matic scripts/withdraw.ts",
-    "addbasetoken": "hardhat run --network matic scripts/add-basetoken.ts"
+    "withdrawall": "hardhat run --network matic scripts/withdraw-all.ts",
+    "addbasetoken": "hardhat run --network matic scripts/add-basetoken.ts",
+    "verify": "hardhat --network matic etherscan-verify --api-key "
   },
   "devDependencies": {
     "@nomiclabs/hardhat-etherscan": "^2.1.6",

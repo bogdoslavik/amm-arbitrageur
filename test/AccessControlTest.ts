@@ -45,16 +45,16 @@ describe('FlashBot access control', () => {
     await weth.mint(flashBot.address, wethAmount);
 
     const balanceBefore = await owner.getBalance();
-    const wethBlanceBefore = await weth.balanceOf(owner.address);
+    const wethBalanceBefore = await weth.balanceOf(owner.address);
 
     // let addr1 withdraw so the gas not spend on owner
-    expect(await flashBot.connect(addr1).withdraw())
+    expect(await flashBot.connect(addr1).withdrawAll())
       .to.emit(flashBot, 'Withdrawn')
       .withArgs(owner.address, amount);
 
     const balanceAfter = await owner.getBalance();
     const wethBlanceAfter = await weth.balanceOf(owner.address);
     expect(balanceAfter).to.be.eq(balanceBefore.add(amount));
-    expect(wethBlanceAfter).to.be.eq(wethBlanceBefore.add(wethAmount));
+    expect(wethBlanceAfter).to.be.eq(wethBalanceBefore.add(wethAmount));
   });
 });

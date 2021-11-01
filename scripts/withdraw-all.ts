@@ -9,8 +9,8 @@ async function main() {
     deployer.bot // contract address
   )) as FlashBot;
 
-  const result = await flashBot.withdraw();
-  console.log('flashBot.withdraw() executed', result);
+  const result = await flashBot.withdrawAll();
+  console.log('flashBot.withdrawAll() executed', result);
 }
 
 main()

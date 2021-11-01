@@ -4,12 +4,14 @@ import { expect } from 'chai';
 import { ethers, waffle } from 'hardhat';
 import { FlashBot } from '../typechain/FlashBot';
 import { IWETH } from '../typechain/IWETH';
+import { IERC20 } from '../typechain/IERC20';
 import * as addressbook from '../addressbook';
 
 const adr = addressbook.matic; //TODO set by network name
 
 describe('Flashswap', () => {
   let weth: IWETH;
+  let wethERC20: IERC20;
   let flashBot: FlashBot;
 
   const Base = adr.TestBase;
@@ -17,13 +19,16 @@ describe('Flashswap', () => {
 
   beforeEach(async () => {
     const wethFactory = (await ethers.getContractAt('IWETH', Base)) as IWETH;
+    const erc20Factory = (await ethers.getContractAt('IERC20', Base)) as IERC20;
     weth = wethFactory.attach(Base) as IWETH;
+    wethERC20 = erc20Factory.attach(Base) as IERC20;
 
     const fbFactory = await ethers.getContractFactory('FlashBot');
     flashBot = (await fbFactory.deploy(Base)) as FlashBot;
   });
 
   describe('flash swap arbitrage', () => {
+
     let signer: SignerWithAddress;
 
     const uniFactoryAbi = ['function getPair(address, address) view returns (address pair)'];
@@ -45,11 +50,34 @@ describe('Flashswap', () => {
       dex2PairAddr = await dex2Factory.getPair(Base, Quote);
     });
 
-    it.only('do flash swap between Dex2 and Dex1', async () => {
+    it.only('do swap between Dex2 and Dex1', async () => {
+
       // transfer 100000 to mdex pair
       const amountEth = ethers.utils.parseEther('100000');
       await weth.deposit({ value: amountEth });
       await weth.transfer(dex1PairAddr, amountEth);
+      // top up WETH (WMATIC) bot balance
+      const botEth = ethers.utils.parseEther('1000');
+      await weth.deposit({ value: botEth });
+      await weth.transfer(flashBot.address, botEth);
+
+      await dex1Pair.connect(signer).sync();
+
+      const balanceBefore = await wethERC20.balanceOf(signer.address);
+      await flashBot.flashArbitrage(dex1PairAddr, dex2PairAddr);
+      const balanceAfter = await wethERC20.balanceOf(signer.address);
+      const profit = balanceAfter.sub(balanceBefore);
+      console.log('profit', profit.toString());
+
+      expect(balanceAfter).to.be.gt(balanceBefore);
+    })
+
+ /*   it('do flash swap between Dex2 and Dex1', async () => {
+      // transfer 100000 to mdex pair
+      const amountEth = ethers.utils.parseEther('100000');
+      await weth.deposit({ value: amountEth });
+      await weth.transfer(dex1PairAddr, amountEth);
+
       await dex1Pair.connect(signer).sync();
 
       const balanceBefore = await ethers.provider.getBalance(flashBot.address);
@@ -57,7 +85,7 @@ describe('Flashswap', () => {
       const balanceAfter = await ethers.provider.getBalance(flashBot.address);
 
       expect(balanceAfter).to.be.gt(balanceBefore);
-    });
+    });*/
 
     it('calculate how much profit we get', async () => {
       // transfer 100000 to MDEX pair
