@@ -20,7 +20,7 @@ const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 const maticDexes: AmmFactories = {
   tetu : '0x684d8c187be836171a1Af8D533e4724893031828',
   sushi: '0xc35DADB65012eC5796536bD9864eD8773aBc74C4',
-  // quick: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
+  quick: '0x5757371414417b8C6CAad45bAeF941aBc7d3Ab32',
   // wault: '0xa98ea6356A316b44Bf710D5f9b6b4eA0081409Ef',
 };
 
@@ -34,8 +34,8 @@ const maticBaseTokens: Tokens = {
    */
 
   wmatic: { symbol: 'WMATIC', address: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' }, //+
-  // usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' }, //+
-  // usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' }, //+
+  usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' }, //+
+  usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' }, //+
   // tetu:   { symbol: 'TETU',   address: '0x255707B70BF90aa112006E1b07B9AeA6De021424' }, //+
   // weth:   { symbol: 'WETH',   address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' },
   // wbtc:   { symbol: 'WBTC',   address: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6' },

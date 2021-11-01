@@ -17,7 +17,7 @@ const gasPrice = utils.parseUnits('50', 'gwei');
 const gasLimit = 3000000;
 const gasUsage = 550000;
 
-const bscScanApiKey = deployer.polygonScan; // bscscan API key
+const bscScanApiKey = deployer.polygonScan; // bsc scan API key
 // const bscScanUrl = `https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=${bscScanApiKey}`;
 const bscScanUrl = `https://api.polygonscan.com/api?module=stats&action=maticprice&apikey=${bscScanApiKey}`;
 
@@ -26,7 +26,7 @@ const config: Config = {
   logLevel: 'info',
   concurrency: 50,
   // minimumProfit: 50, // in USD
-  minimumProfit: 1, // in USD
+  minimumProfit: 0.20, // in USD
   gasPrice: gasPrice,
   gasLimit: gasLimit,
   gasUsage: gasUsage,
