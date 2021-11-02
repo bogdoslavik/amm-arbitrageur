@@ -3,6 +3,7 @@ pragma solidity ^0.7.0;
 pragma abicoder v2;
 
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/SafeERC20.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/EnumerableSet.sol';
@@ -10,7 +11,7 @@ import 'hardhat/console.sol';
 
 import './interfaces/IUniswapV2Pair.sol';
 import './interfaces/IWETH.sol';
-import './libraries/Decimal.sol';
+//import './libraries/Decimal.sol';
 
 struct OrderedReserves {
     uint256 a1; // base asset
@@ -38,7 +39,7 @@ struct CallbackData {
 }
 
 contract FlashBot is Ownable {
-    using Decimal for Decimal.D256;
+//    using Decimal for Decimal.D256;
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
     using EnumerableSet for EnumerableSet.AddressSet;
@@ -158,15 +159,64 @@ contract FlashBot is Ownable {
         (uint256 pool1Reserve0, uint256 pool1Reserve1, ) = IUniswapV2Pair(pool1).getReserves();
 
         // Calculate the price denominated in quote asset token
-        (Decimal.D256 memory price0, Decimal.D256 memory price1) =
-            baseTokenSmaller
-                ? (Decimal.from(pool0Reserve0).div(pool0Reserve1), Decimal.from(pool1Reserve0).div(pool1Reserve1))
-                : (Decimal.from(pool0Reserve1).div(pool0Reserve0), Decimal.from(pool1Reserve1).div(pool1Reserve0));
+        (uint256  price0, uint256 price1) =
+            baseTokenSmaller //TODO DECIMALS
+                ? (pool0Reserve0.div(pool0Reserve1), pool1Reserve0.div(pool1Reserve1))
+                : (pool0Reserve1.div(pool0Reserve0), pool1Reserve1.div(pool1Reserve0));
 
         // get a1, b1, a2, b2 with following rule:
         // 1. (a1, b1) represents the pool with lower price, denominated in quote asset token
         // 2. (a1, a2) are the base tokens in two pools
-        if (price0.lessThan(price1)) {
+        if (price0 < price1) {
+            (lowerPool, higherPool) = (pool0, pool1);
+            (orderedReserves.a1, orderedReserves.b1, orderedReserves.a2, orderedReserves.b2) = baseTokenSmaller
+                ? (pool0Reserve0, pool0Reserve1, pool1Reserve0, pool1Reserve1)
+                : (pool0Reserve1, pool0Reserve0, pool1Reserve1, pool1Reserve0);
+        } else {
+            (lowerPool, higherPool) = (pool1, pool0);
+            (orderedReserves.a1, orderedReserves.b1, orderedReserves.a2, orderedReserves.b2) = baseTokenSmaller
+                ? (pool1Reserve0, pool1Reserve1, pool0Reserve0, pool0Reserve1)
+                : (pool1Reserve1, pool1Reserve0, pool0Reserve1, pool0Reserve0);
+        }
+        console.log('Borrow from pool:', lowerPool);
+        console.log('Sell to pool:', higherPool);
+    }
+    /// @dev Compare price denominated in quote token between two pools. In 18 decimals
+    function getOrderedReserves18(
+        address pool0,
+        address pool1,
+        bool baseTokenSmaller
+    )
+        internal
+        view
+        returns (
+            address lowerPool,
+            address higherPool,
+            OrderedReserves memory orderedReserves
+        )
+    {
+        (uint256 pool0Reserve0, uint256 pool0Reserve1, ) = IUniswapV2Pair(pool0).getReserves();
+        (uint256 pool1Reserve0, uint256 pool1Reserve1, ) = IUniswapV2Pair(pool1).getReserves();
+
+        uint8 token0decimals = ERC20(IUniswapV2Pair(pool0).token0()).decimals();
+        uint8 token1decimals = ERC20(IUniswapV2Pair(pool0).token1()).decimals();
+
+        pool0Reserve0 = pool0Reserve0.mul(10**18).div(10**token0decimals);
+        pool0Reserve1 = pool0Reserve1.mul(10**18).div(10**token1decimals);
+
+        pool1Reserve0 = pool1Reserve0.mul(10**18).div(10**token0decimals);
+        pool1Reserve1 = pool1Reserve1.mul(10**18).div(10**token1decimals);
+
+        // Calculate the price denominated in quote asset token
+        (uint256 price0, uint256 price1) =
+            baseTokenSmaller //TODO DECIMALS
+                ? (pool0Reserve0.div(pool0Reserve1), pool1Reserve0.div(pool1Reserve1))
+                : (pool0Reserve1.div(pool0Reserve0), pool1Reserve1.div(pool1Reserve0));
+
+        // get a1, b1, a2, b2 with following rule:
+        // 1. (a1, b1) represents the pool with lower price, denominated in quote asset token
+        // 2. (a1, a2) are the base tokens in two pools
+        if (price0 < price1) {
             (lowerPool, higherPool) = (pool0, pool1);
             (orderedReserves.a1, orderedReserves.b1, orderedReserves.a2, orderedReserves.b2) = baseTokenSmaller
                 ? (pool0Reserve0, pool0Reserve1, pool1Reserve0, pool1Reserve1)
@@ -189,6 +239,7 @@ contract FlashBot is Ownable {
 
         OrderedReserves memory orderedReserves;
         (info.lowerPool, info.higherPool, orderedReserves) = getOrderedReserves(pool0, pool1, info.baseTokenSmaller);
+        (, , OrderedReserves memory orderedReserves18) = getOrderedReserves18(pool0, pool1, info.baseTokenSmaller);
 
         // this must be updated every transaction for callback origin authentication
         permissionedPairAddress = info.lowerPool;
@@ -197,7 +248,9 @@ contract FlashBot is Ownable {
 
         // avoid stack too deep error
         {
-            uint256 borrowAmount = calcBorrowAmount(orderedReserves); //TODO get min of balance and borrow
+            uint256 borrowAmount = calcBorrowAmount(orderedReserves18);
+            uint8 quoteDecimals = ERC20(info.quoteToken).decimals();
+            borrowAmount = borrowAmount.mul(10*quoteDecimals).div(10*18);
             console.log('borrowAmount', borrowAmount);
 
             if (IUniswapV2Pair(info.lowerPool).factory()==_TETUSWAP_FACTORY) { // no flash swap
@@ -215,7 +268,7 @@ contract FlashBot is Ownable {
                 console.log('fee2', fee2);
                 uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2, fee2);
                 require(baseTokenOutAmount > debtAmount, 'BOT: Arbitrage fail, no profit');
-                console.log('Profit:', (baseTokenOutAmount - debtAmount) / 1 ether);
+                console.log('Profit:', (baseTokenOutAmount - debtAmount) /* / 1 ether*/);
 
                 CallbackData memory callbackData;
                 callbackData.debtPool = info.lowerPool;
@@ -266,7 +319,7 @@ contract FlashBot is Ownable {
                 console.log('fee2', fee2);
                 uint256 baseTokenOutAmount = getAmountOut(borrowAmount, orderedReserves.b2, orderedReserves.a2, fee2);
                 require(baseTokenOutAmount > debtAmount, 'BOT: Flash arbitrage fail, no profit');
-                console.log('Profit:', (baseTokenOutAmount - debtAmount) / 1 ether);
+                console.log('Profit:', (baseTokenOutAmount - debtAmount)/* / 1 ether*/);
 
                 // can only initialize this way to avoid stack too deep error
                 CallbackData memory callbackData;
@@ -324,12 +377,17 @@ contract FlashBot is Ownable {
 
     /// @notice Calculate how much profit we can by arbitraging between two pools
     function getProfit(address pool0, address pool1) external view returns (uint256 profit, address baseToken) {
-        (bool baseTokenSmaller, , ) = isbaseTokenSmaller(pool0, pool1);
-        baseToken = baseTokenSmaller ? IUniswapV2Pair(pool0).token0() : IUniswapV2Pair(pool0).token1();
+        (bool baseTokenSmaller, address _baseToken, address quoteToken) = isbaseTokenSmaller(pool0, pool1);
+//        baseToken = baseTokenSmaller ? IUniswapV2Pair(pool0).token0() : IUniswapV2Pair(pool0).token1();
+        baseToken = _baseToken;
 
         (address p1, address p2, OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
+        (, , OrderedReserves memory orderedReserves18) = getOrderedReserves18(pool0, pool1, baseTokenSmaller);
 
-        uint256 borrowAmount = calcBorrowAmount(orderedReserves);
+        uint256 borrowAmount = calcBorrowAmount(orderedReserves18);
+        uint8 quoteDecimals = ERC20(quoteToken).decimals();
+        borrowAmount = borrowAmount.mul(10*quoteDecimals).div(10*18);
+
         // borrow quote token on lower price pool,
         uint256 fee1 = getFee(p1);
         uint256 debtAmount = getAmountIn(borrowAmount, orderedReserves.a1, orderedReserves.b1, fee1);
@@ -378,8 +436,20 @@ contract FlashBot is Ownable {
             d = 1e12;
         } else if (min > 1e15) {
             d = 1e11;
-        } else {
+        } else if (min > 1e14) {
             d = 1e10;
+        } else if (min > 1e13) {
+            d = 1e9;
+        } else if (min > 1e12) {
+            d = 1e8;
+        } else if (min > 1e11) {
+            d = 1e7;
+        } else if (min > 1e10) {
+            d = 1e6;
+        } else if (min > 1e9) {
+            d = 1e5;
+        } else {
+            d = 1e4;
         }
 
         (int256 a1, int256 a2, int256 b1, int256 b2) =
@@ -411,7 +481,7 @@ contract FlashBot is Ownable {
         x2 = (-b - sqrtM) / (2 * a);
     }
 
-    /// @dev Newton’s method for caculating square root of n
+    /// @dev Newton’s method for calculating square root of n
     function sqrt(uint256 n) internal pure returns (uint256 res) {
         assert(n > 1);
 
