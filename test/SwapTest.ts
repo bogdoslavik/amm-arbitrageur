@@ -52,7 +52,7 @@ describe('Flashswap', () => {
       dex2PairAddr = await dex2Factory.getPair(Base, Quote);
     });
 
-    it.only('do swap between Dex2 and Dex1 (TETU/USDC)', async () => {
+    it('do swap between Dex2 and Dex1 (TETU/USDC)', async () => {
       const USDCHolder = "0x49f5ab0cF42c24E83F653625e19F6b897B766c3A"
 
       // console.log('send Ether to USDCHolder');
@@ -90,7 +90,7 @@ describe('Flashswap', () => {
       expect(balanceAfter).to.be.gt(balanceBefore);
     })
 
-    it('do swap between Dex2 and Dex1 (WETH/WMATIC)', async () => {
+    it.only('do swap between Dex2 and Dex1 (WETH/WMATIC)', async () => {
 
       // transfer 100000 to mdex pair
       const amountEth = ethers.utils.parseEther('100000');
