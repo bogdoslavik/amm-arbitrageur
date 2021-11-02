@@ -160,7 +160,7 @@ contract FlashBot is Ownable {
 
         // Calculate the price denominated in quote asset token
         (uint256  price0, uint256 price1) =
-            baseTokenSmaller //TODO DECIMALS
+            baseTokenSmaller
                 ? (pool0Reserve0.div(pool0Reserve1), pool1Reserve0.div(pool1Reserve1))
                 : (pool0Reserve1.div(pool0Reserve0), pool1Reserve1.div(pool1Reserve0));
 
@@ -377,9 +377,9 @@ contract FlashBot is Ownable {
 
     /// @notice Calculate how much profit we can by arbitraging between two pools
     function getProfit(address pool0, address pool1) external view returns (uint256 profit, address baseToken) {
-        (bool baseTokenSmaller, address _baseToken, address quoteToken) = isbaseTokenSmaller(pool0, pool1);
-//        baseToken = baseTokenSmaller ? IUniswapV2Pair(pool0).token0() : IUniswapV2Pair(pool0).token1();
-        baseToken = _baseToken;
+        (bool baseTokenSmaller, , ) = isbaseTokenSmaller(pool0, pool1);
+        baseToken          = baseTokenSmaller ? IUniswapV2Pair(pool0).token0() : IUniswapV2Pair(pool0).token1();
+        address quoteToken = baseTokenSmaller ? IUniswapV2Pair(pool0).token1() : IUniswapV2Pair(pool0).token0();
 
         (address p1, address p2, OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
         (, , OrderedReserves memory orderedReserves18) = getOrderedReserves18(pool0, pool1, baseTokenSmaller);
