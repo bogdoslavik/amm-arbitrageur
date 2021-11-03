@@ -7,6 +7,7 @@ import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/SafeERC20.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/EnumerableSet.sol';
+import '@openzeppelin/contracts/proxy/Initializable.sol';
 import 'hardhat/console.sol';
 
 import './interfaces/IUniswapV2Pair.sol';
@@ -38,7 +39,7 @@ struct CallbackData {
     uint256 debtTokenOutAmount;
 }
 
-contract FlashBot is Ownable {
+contract FlashBot is Ownable, Initializable {
     using Decimal for Decimal.D256;
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -59,6 +60,10 @@ contract FlashBot is Ownable {
     event BaseTokenRemoved(address indexed token);
 
     constructor(address _WETH) {
+        initialize(_WETH);
+    }
+
+    function initialize(address _WETH) Initializer {
         WETH = _WETH;
         baseTokens.add(_WETH);
     }
@@ -240,19 +245,25 @@ contract FlashBot is Ownable {
         (address p1, address p2, OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
 
         uint256 baseStartAmount = IERC20(baseToken).balanceOf(address(this));
+        console.log('+baseStartAmount', baseStartAmount);
 
         // sell base token on lower price pool for quite token,
         uint256 fee1 = getFee(p1);
+        console.log('+fee1', fee1);
         uint256 quoteOutAmount = getAmountOut(baseStartAmount, orderedReserves.a1, orderedReserves.b1, fee1);
+        console.log('+quoteOutAmount', quoteOutAmount);
 
         // sell quote token on higher price pool
         uint256 fee2 = getFee(p2);
+        console.log('+fee2', fee2);
         uint256 baseOutAmount = getAmountOut(quoteOutAmount, orderedReserves.b2, orderedReserves.a2, fee2);
+        console.log('+baseOutAmount', baseOutAmount);
 
         if (baseOutAmount < baseStartAmount) {
             profit = 0;
         } else {
             profit = baseOutAmount - baseStartAmount;
+            console.log('+profit', profit);
         }
     }
 

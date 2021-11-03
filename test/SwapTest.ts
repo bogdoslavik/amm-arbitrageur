@@ -2,16 +2,16 @@ import { Contract } from '@ethersproject/contracts';
 import { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers';
 import { expect } from 'chai';
 import { ethers, waffle, network } from 'hardhat';
-import { FlashBot } from '../typechain/FlashBot';
-import { IWETH } from '../typechain/IWETH';
-import { IERC20 } from '../typechain/IERC20';
+import { FlashBot, IWETH, IERC20, ERC20 } from '../typechain';
 import * as addressbook from '../addressbook';
+import { BigNumber } from 'ethers';
 
 const adr = addressbook.matic; //TODO set by network name
 
 describe.only('Arbitrage', () => {
   let weth: IWETH;
-  let baseERC20: IERC20;
+  let baseIERC20: IERC20;
+  let baseERC20: ERC20;
   let flashBot: FlashBot;
 
 
@@ -24,9 +24,11 @@ describe.only('Arbitrage', () => {
 
   async function testPair(Base: string, Quote: string) {
     const wethFactory = (await ethers.getContractAt('IWETH', Base)) as IWETH;
-    const erc20Factory = (await ethers.getContractAt('IERC20', Base)) as IERC20;
+    const ierc20Factory = (await ethers.getContractAt('IERC20', Base)) as IERC20;
+    const erc20Factory = (await ethers.getContractAt('ERC20', Base)) as ERC20;
     weth = wethFactory.attach(Base) as IWETH;
-    baseERC20 = erc20Factory.attach(Base) as IERC20;
+    baseIERC20 = ierc20Factory.attach(Base) as IERC20;
+    baseERC20 = erc20Factory.attach(Base) as ERC20;
 
     let signer: SignerWithAddress;
 
@@ -61,18 +63,21 @@ describe.only('Arbitrage', () => {
       params: [Holder], // base token holder
     });
     const signerUSDC = await ethers.getSigner(Holder);
+    const baseDecimals = await baseERC20.decimals();
+    console.log('baseDecimals', baseDecimals);
+    const one = BigNumber.from(10).pow(baseDecimals)
 
     // top up USDC bot balance
     console.log('top up bot balance');
-    const botAmount = 200*(10**6);
-    await baseERC20.connect(signerUSDC).approve(Holder, botAmount);
-    await baseERC20.connect(signerUSDC).transferFrom(Holder, flashBot.address, botAmount);
+    const botAmount = BigNumber.from(200).mul(one);
+    await baseIERC20.connect(signerUSDC).approve(Holder, botAmount);
+    await baseIERC20.connect(signerUSDC).transferFrom(Holder, flashBot.address, botAmount);
 
     // transfer 100000 to mdex pair
-    console.log('transfer 100000 to mdex pair')
-    const dexAmount = 100000*(10**6);
-    await baseERC20.connect(signerUSDC).approve(Holder, dexAmount);
-    await baseERC20.connect(signerUSDC).transferFrom(Holder, dex1PairAddr, dexAmount);
+    console.log('transfer 1000000 to mdex pair')
+    const dexAmount = BigNumber.from(100000).mul(one);
+    await baseIERC20.connect(signerUSDC).approve(Holder, dexAmount);
+    await baseIERC20.connect(signerUSDC).transferFrom(Holder, dex1PairAddr, dexAmount);
     await dex1Pair.connect(signer).sync();
 
     // getProfit
@@ -82,11 +87,12 @@ describe.only('Arbitrage', () => {
     // console.log('estimatedProfit2', estimatedProfit2.toString());
 
     // Arbitrage
-    const balanceBefore = await baseERC20.balanceOf(signer.address);
+    const balanceBefore = await baseIERC20.balanceOf(signer.address);
     await flashBot.flashArbitrage(dex2PairAddr, dex1PairAddr);
-    const balanceAfter = await baseERC20.balanceOf(signer.address);
+    const balanceAfter = await baseIERC20.balanceOf(signer.address);
     const profit = balanceAfter.sub(balanceBefore);
-    console.log('profit', profit.toString());
+    console.log('profit', profit.toString())
+    console.log('      ', profit.div(one).toString());
 
     expect(balanceAfter).to.be.gt(balanceBefore);
   }
@@ -97,6 +103,14 @@ describe.only('Arbitrage', () => {
       USDC_TETU  : {b:adr.USDC,   q:adr.TETU},
       USDT_TETU  : {b:adr.USDT,   q:adr.TETU},
       WMATIC_TETU: {b:adr.WMATIC, q:adr.TETU},
+
+      USDC_WETH  : {b:adr.USDC,   q:adr.WETH},
+      USDT_WETH  : {b:adr.USDT,   q:adr.WETH},
+      WMATIC_WETH: {b:adr.WMATIC, q:adr.WETH},
+
+      USDC_WBTC  : {b:adr.USDC,   q:adr.WBTC},
+      USDT_WBTC  : {b:adr.USDT,   q:adr.WBTC},
+      WMATIC_WBTC: {b:adr.WMATIC, q:adr.WBTC},
     }
 
     async function testPairFromArray(pair: any) {
