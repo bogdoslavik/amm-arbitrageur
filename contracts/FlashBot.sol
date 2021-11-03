@@ -5,7 +5,6 @@ pragma abicoder v2;
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
-import '@openzeppelin/contracts/access/Ownable.sol';
 import '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
 import '@openzeppelin/contracts/proxy/utils/Initializable.sol';
 import 'hardhat/console.sol';
@@ -13,6 +12,7 @@ import 'hardhat/console.sol';
 import './interfaces/IUniswapV2Pair.sol';
 import './interfaces/IWETH.sol';
 import './libraries/Decimal.sol';
+import './libraries/ContractOwnable.sol';
 import './libraries/SafeMath.sol';
 
 struct OrderedReserves {
@@ -40,7 +40,7 @@ struct CallbackData {
     uint256 debtTokenOutAmount;
 }
 
-contract FlashBot is Ownable, Initializable {
+contract FlashBot is ContractOwnable, Initializable {
     using Decimal for Decimal.D256;
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
@@ -66,6 +66,7 @@ contract FlashBot is Ownable, Initializable {
     }
 
     function initialize(address _WETH, address[] memory _baseTokens) public initializer {
+        initOwner(_msgSender());
         WETH = _WETH;
         baseTokens.add(_WETH);
         for (uint256 i=0; i<_baseTokens.length; i++) {
@@ -76,8 +77,8 @@ contract FlashBot is Ownable, Initializable {
     function withdrawAll() external onlyOwner {
         uint256 balance = address(this).balance;
         if (balance > 0) {
-            payable(owner()).transfer(balance);
-            emit Withdrawn(owner(), balance);
+            payable(getOwner()).transfer(balance);
+            emit Withdrawn(getOwner(), balance);
         }
 
         for (uint256 i = 0; i < baseTokens.length(); i++) {
@@ -85,7 +86,7 @@ contract FlashBot is Ownable, Initializable {
             balance = IERC20(token).balanceOf(address(this));
             if (balance > 0) {
                 // do not use safe transfer here to prevents revert by any shitty token
-                IERC20(token).transfer(owner(), balance);
+                IERC20(token).transfer(getOwner(), balance);
             }
         }
     }
@@ -93,9 +94,9 @@ contract FlashBot is Ownable, Initializable {
     function withdraw(address token, uint256 amount) external onlyOwner {
         uint256 balance = IERC20(token).balanceOf(address(this));
         if (balance >= amount) {
-            IERC20(token).transfer(owner(), amount);
+            IERC20(token).transfer(getOwner(), amount);
         } else {
-            IERC20(token).transfer(owner(), balance);
+            IERC20(token).transfer(getOwner(), balance);
         }
     }
 
@@ -108,7 +109,7 @@ contract FlashBot is Ownable, Initializable {
         uint256 balance = IERC20(token).balanceOf(address(this));
         if (balance > 0) {
             // do not use safe transfer to prevents revert by any shitty token
-            IERC20(token).transfer(owner(), balance);
+            IERC20(token).transfer(getOwner(), balance);
         }
         baseTokens.remove(token);
         emit BaseTokenRemoved(token);
@@ -237,7 +238,7 @@ contract FlashBot is Ownable, Initializable {
         require(balanceAfter > balanceBefore, 'BOT: Losing money');
         uint256 profit = balanceAfter-balanceBefore;
         console.log('-received profit', balanceAfter-balanceBefore);
-        IERC20(info.baseToken).transfer(owner(), profit);
+        IERC20(info.baseToken).transfer(getOwner(), profit);
 
     }
 

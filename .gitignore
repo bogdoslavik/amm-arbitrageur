@@ -8,3 +8,4 @@ typechain
 
 #Secret key
 .secret.ts
+verify.cmd

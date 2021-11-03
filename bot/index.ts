@@ -15,16 +15,25 @@ function sleep(ms: number) {
 }
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
+  console.log('profitWei', profitWei);
   let price = 1;
+  let decimals = 6; // for USDT and USDC
   if (baseTokens.wmatic && baseTokens.wmatic.address == address) {
     price = await getBnbPrice();
+    decimals = 18;
   }
-  let profit = parseFloat(ethers.utils.formatEther(profitWei));
-  profit = profit * price;
+  console.log('price', price);
+  const profitCents = profitWei.mul(100).div(BigNumber.from(10).pow(decimals));
+  console.log('profitCents', profitCents);
+  const profit = profitCents.toNumber() * price / 100;
+  console.log('profit', profit);
 
   const gasCost = price * parseFloat(ethers.utils.formatEther(config.gasPrice)) *
     (config.gasUsage as number);
-  return profit - gasCost;
+  console.log('gasCost', gasCost);
+  const clearProfit = profit-gasCost
+  console.log('clearProfit', clearProfit);
+  return clearProfit;
 }
 
 let turn = 0;

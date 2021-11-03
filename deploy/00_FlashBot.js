@@ -10,14 +10,10 @@ module.exports = async ({getNamedAccounts, deployments}) => {
   ];
   await deploy('FlashBot', {
     from: deployer,
-    args,
+    args: args,
     log: true,
     proxy: {
-      proxyContract: "OptimizedTransparentProxy",
-      init: {
-        methodName: 'initialize',
-        args
-      }
+      methodName: 'initialize',
     }
   });
 };
