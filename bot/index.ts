@@ -66,16 +66,17 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
       log.error(pair.symbols, err);
       return;
     }
+    console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, res.profit.toString(), ' '.repeat(20), '\u001b[1A');
 
     if (res.profit.gt(BigNumber.from('0'))) {
       const netProfit = await calcNetProfit(res.profit, res.baseToken, baseTokens);
-      console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
+      // console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
       // console.log(pair, netProfit );
       if (!netProfit || netProfit < config.minimumProfit) {
         return;
       }
 
-      log.info(`Calling arbitrage for ${pair.symbols}, net profit: ${netProfit}`);
+      log.info(`Calling arbitrage for ${pair.symbols}, net profit: $${netProfit}`);
       try {
         // lock to prevent tx nonce overlap
         await lock.acquire('flash-bot', async () => {
