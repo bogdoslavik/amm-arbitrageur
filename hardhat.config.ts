@@ -30,6 +30,7 @@ const config: HardhatUserConfig = {
       forking: {
         url: fork_RPC,
         enabled: true,
+        blockNumber: 20930099 //TODO update
       },
       accounts: {
         accountsBalance: '1000000000000000000000000', // 1 mil ether
