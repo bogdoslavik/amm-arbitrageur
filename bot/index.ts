@@ -15,7 +15,7 @@ function sleep(ms: number) {
 }
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
-  console.log('profitWei', profitWei);
+  console.log('profitWei', profitWei.toString());
   let price = 1;
   let decimals = 6; // for USDT and USDC
   if (baseTokens.wmatic && baseTokens.wmatic.address == address) {
@@ -24,7 +24,7 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   }
   console.log('price', price);
   const profitCents = profitWei.mul(100).div(BigNumber.from(10).pow(decimals));
-  console.log('profitCents', profitCents);
+  console.log('profitCents', profitCents.toString());
   const profit = profitCents.toNumber() * price / 100;
   console.log('profit', profit);
 
@@ -56,7 +56,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
         gasLimit: config.gasLimit,
       });
       log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
-    } catch (err) {
+    } catch (err:any) {
       if (err.message.startsWith('cannot estimate gas;')) {
         //console.log(`Cannot estimate gas for ${pair.symbols}`)
         // console.log(`Cannot estimate gas for ${pair.symbols}`, ' '.repeat(20), '\u001b[1A')
@@ -75,7 +75,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
         return;
       }
 
-      log.info(`Calling flash arbitrage for ${pair.symbols}, net profit: ${netProfit}`);
+      log.info(`Calling arbitrage for ${pair.symbols}, net profit: ${netProfit}`);
       try {
         // lock to prevent tx nonce overlap
         await lock.acquire('flash-bot', async () => {
@@ -86,7 +86,7 @@ function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
           const receipt = await response.wait(1);
           log.info(`Tx: ${receipt.transactionHash}`);
         });
-      } catch (err) {
+      } catch (err: any) {
         if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
           return;
         }
