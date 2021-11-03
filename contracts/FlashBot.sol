@@ -60,13 +60,17 @@ contract FlashBot is Ownable, Initializable {
     event BaseTokenAdded(address indexed token);
     event BaseTokenRemoved(address indexed token);
 
-    constructor(address _WETH) {
-        initialize(_WETH);
+    constructor(address _WETH, address[] memory _baseTokens) {
+        //TODO remove for proxy deploy (add fixture to test first)
+        initialize(_WETH, _baseTokens);
     }
 
-    function initialize(address _WETH) public initializer {
+    function initialize(address _WETH, address[] memory _baseTokens) public initializer {
         WETH = _WETH;
         baseTokens.add(_WETH);
+        for (uint256 i=0; i<_baseTokens.length; i++) {
+            addBaseToken(_baseTokens[i]);
+        }
     }
 
     function withdrawAll() external onlyOwner {
@@ -95,7 +99,7 @@ contract FlashBot is Ownable, Initializable {
         }
     }
 
-    function addBaseToken(address token) external onlyOwner {
+    function addBaseToken(address token) public onlyOwner {
         baseTokens.add(token);
         emit BaseTokenAdded(token);
     }

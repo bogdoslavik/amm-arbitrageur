@@ -34,8 +34,8 @@ const maticBaseTokens: Tokens = {
    */
 
   wmatic: { symbol: 'WMATIC', address: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270' }, //+
-  // usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' }, //+
-  // usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' }, //+
+  usdc:   { symbol: 'USDC',   address: '0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174' }, //+
+  usdt:   { symbol: 'USDT',   address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F' }, //+
   // tetu:   { symbol: 'TETU',   address: '0x255707B70BF90aa112006E1b07B9AeA6De021424' }, //+
   // weth:   { symbol: 'WETH',   address: '0x7ceb23fd6bc0add59e62ac25578270cff1b9f619' },
   // wbtc:   { symbol: 'WBTC',   address: '0x1bfd67037b42cf73acf2047067bd4f2c47d9bfd6' },

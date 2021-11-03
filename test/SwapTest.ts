@@ -17,9 +17,9 @@ describe.only('Arbitrage', () => {
 
   beforeEach(async () => {
     const fbFactory = await ethers.getContractFactory('FlashBot');
-    flashBot = (await fbFactory.deploy(adr.WMATIC)) as FlashBot;
-    await flashBot.addBaseToken(adr.USDC)
-    await flashBot.addBaseToken(adr.USDT)
+    flashBot = (await fbFactory.deploy(
+      adr.WMATIC, [adr.USDC, adr.USDT])) as FlashBot;
+
   });
 
   async function testPair(Base: string, Quote: string) {
