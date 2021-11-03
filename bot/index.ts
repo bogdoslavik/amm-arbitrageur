@@ -112,7 +112,7 @@ async function main() {
       task: arbitrageFunc(flashBot, baseTokens),
       // maxConcurrency: config.concurrency,
     });
-    await sleep(30000);
+    await sleep(60000);
   }
 }
 
