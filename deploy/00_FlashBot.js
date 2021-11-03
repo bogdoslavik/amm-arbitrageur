@@ -7,6 +7,7 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     args,
     log: true,
     proxy: {
+      proxyContract: "OptimizedTransparentProxy",
       init: {
         methodName: 'initialize',
         args
