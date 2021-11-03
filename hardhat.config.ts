@@ -23,7 +23,7 @@ const fork_RPC = forks[deployer.fork];
 console.log('deployer.fork', deployer.fork);
 
 const config: HardhatUserConfig = {
-  solidity: { version: '0.7.6' },
+  solidity: { version: '0.8.4' },
   networks: {
     hardhat: {
       // loggingEnabled: true,

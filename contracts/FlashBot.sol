@@ -1,18 +1,19 @@
 //SPDX-License-Identifier: MIT
-pragma solidity ^0.7.0;
+pragma solidity ^0.8.0;
 pragma abicoder v2;
 
 import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
-import '@openzeppelin/contracts/token/ERC20/SafeERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
-import '@openzeppelin/contracts/utils/EnumerableSet.sol';
-import '@openzeppelin/contracts/proxy/Initializable.sol';
+import '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
+import '@openzeppelin/contracts/proxy/utils/Initializable.sol';
 import 'hardhat/console.sol';
 
 import './interfaces/IUniswapV2Pair.sol';
 import './interfaces/IWETH.sol';
 import './libraries/Decimal.sol';
+import './libraries/SafeMath.sol';
 
 struct OrderedReserves {
     uint256 a1; // base asset
@@ -50,7 +51,7 @@ contract FlashBot is Ownable, Initializable {
 
 
     // WETH on ETH or WBNB on BSC, WMATIC on Polygon
-    address immutable WETH;
+    address public WETH;
 
     // AVAILABLE BASE TOKENS
     EnumerableSet.AddressSet baseTokens;
@@ -63,7 +64,7 @@ contract FlashBot is Ownable, Initializable {
         initialize(_WETH);
     }
 
-    function initialize(address _WETH) Initializer {
+    function initialize(address _WETH) public initializer {
         WETH = _WETH;
         baseTokens.add(_WETH);
     }
