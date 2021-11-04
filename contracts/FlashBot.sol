@@ -223,6 +223,7 @@ contract FlashBot is ContractOwnable, Initializable {
             IERC20(info.baseToken).safeTransfer(info.lowerPool, startAmount);
             (uint256 amount0Out, uint256 amount1Out) =
             info.baseTokenSmaller ? (uint256(0), quoteOutAmount) : (quoteOutAmount, uint256(0));
+//            IUniswapV2Pair(info.lowerPool).sync();
             IUniswapV2Pair(info.lowerPool).swap(amount0Out, amount1Out, address(this), noData);
 
             uint256 quoteAmountOut = amount0Out > 0 ? amount0Out : amount1Out;
@@ -230,6 +231,7 @@ contract FlashBot is ContractOwnable, Initializable {
 
             (uint256 amount0Out2, uint256 amount1Out2) =
             info.baseTokenSmaller ? (baseOutAmount, uint256(0)) : (uint256(0), baseOutAmount);
+//            IUniswapV2Pair(info.higherPool).sync();
             IUniswapV2Pair(info.higherPool).swap(amount0Out2, amount1Out2, address(this), noData);
 
         }
@@ -244,7 +246,8 @@ contract FlashBot is ContractOwnable, Initializable {
 
 
     /// @notice Calculate how much profit we can by arbitraging between two pools
-    function getProfit(address pool0, address pool1) external view returns (uint256 profit, address baseToken) {
+    function getProfit(address pool0, address pool1) external view
+    returns (uint256 profit, address baseToken) {
         (bool baseTokenSmaller, address _baseToken, ) = isBaseTokenSmaller(pool0, pool1);
         baseToken = _baseToken;
 

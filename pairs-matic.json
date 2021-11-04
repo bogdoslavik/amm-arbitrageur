@@ -1,0 +1,177 @@
+[
+  {
+    "symbols": "TETU-WMATIC",
+    "pairs": [
+      "0x0196959958d923F2854E684B1694fb9B2d17AeE9",
+      "0x34dA30D1f8Ef9799F5Ae3B9989e1dEf926052e78"
+    ]
+  },
+  {
+    "symbols": "TETU-WMATIC",
+    "pairs": [
+      "0x0196959958d923F2854E684B1694fb9B2d17AeE9",
+      "0x1B955f66f7EA354d29e9469C50a54C1577B52503"
+    ]
+  },
+  {
+    "symbols": "TETU-WMATIC",
+    "pairs": [
+      "0x34dA30D1f8Ef9799F5Ae3B9989e1dEf926052e78",
+      "0x1B955f66f7EA354d29e9469C50a54C1577B52503"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xbC7b96467F4e33B943ecD999432055127f600B61",
+      "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xbC7b96467F4e33B943ecD999432055127f600B61",
+      "0xadbF1854e5883eB8aa7BAf50705338739e558E5b"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E",
+      "0xadbF1854e5883eB8aa7BAf50705338739e558E5b"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0xa6eaf9F1d3Af45c68417679D5204dd808E5B3C47",
+      "0x8531c4e29491fE6e5e87AF6054FC20FcCf0b4290"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0xa6eaf9F1d3Af45c68417679D5204dd808E5B3C47",
+      "0xf6B87181BF250af082272E3f448eC3238746Ce3D"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0x8531c4e29491fE6e5e87AF6054FC20FcCf0b4290",
+      "0xf6B87181BF250af082272E3f448eC3238746Ce3D"
+    ]
+  },
+  {
+    "symbols": "TETU-USDC",
+    "pairs": [
+      "0x80fF4e4153883d770204607eb4aF9994739C72DC",
+      "0xF1c97B5d031f09f64580Fe79FE30110A8C971bF9"
+    ]
+  },
+  {
+    "symbols": "TETU-USDC",
+    "pairs": [
+      "0x80fF4e4153883d770204607eb4aF9994739C72DC",
+      "0x22E2BDaBEbA9b5ff8924275DbE47aDE5cf7b822B"
+    ]
+  },
+  {
+    "symbols": "TETU-USDC",
+    "pairs": [
+      "0xF1c97B5d031f09f64580Fe79FE30110A8C971bF9",
+      "0x22E2BDaBEbA9b5ff8924275DbE47aDE5cf7b822B"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0xad13Ad855FcAc6ffe6dbBa9362873228937Fba53",
+      "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0xad13Ad855FcAc6ffe6dbBa9362873228937Fba53",
+      "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27",
+      "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xA2Ac987AF47CC54250fAE6b8b8f0742E8C531d74",
+      "0xD02b870c556480491c70AaF98C297fddd93F6f5C"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xA2Ac987AF47CC54250fAE6b8b8f0742E8C531d74",
+      "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xD02b870c556480491c70AaF98C297fddd93F6f5C",
+      "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498"
+    ]
+  },
+  {
+    "symbols": "TETU-USDT",
+    "pairs": [
+      "0xCA522CD609F7187C67C8B97bE0a3A3259e7BB6FF",
+      "0x696140365b6094923650b012Fa17fFECe944B6C0"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xeaCa9208121D1b5AA80eBA2fecb2f0017841265f",
+      "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xeaCa9208121D1b5AA80eBA2fecb2f0017841265f",
+      "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9",
+      "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDT",
+    "pairs": [
+      "0xF9875C63bae047FC819A3c2351CAf2A4B957851a",
+      "0xb1dD5322BE07fb2A40ae7fbbBac96781Ca2B0602"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDT",
+    "pairs": [
+      "0xF9875C63bae047FC819A3c2351CAf2A4B957851a",
+      "0x7847350B4C25f564B5a165389fDCeEA99e1ED3BD"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDT",
+    "pairs": [
+      "0xb1dD5322BE07fb2A40ae7fbbBac96781Ca2B0602",
+      "0x7847350B4C25f564B5a165389fDCeEA99e1ED3BD"
+    ]
+  }
+]

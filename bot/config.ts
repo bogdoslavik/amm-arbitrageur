@@ -3,6 +3,7 @@ import deployer from './../.secret';
 
 interface Config {
   contractAddr: string;
+  finderAddr: string;
   logLevel: string;
   minimumProfit: number;
   gasPrice: BigNumber;
@@ -10,11 +11,13 @@ interface Config {
   gasUsage: BigNumberish;
   bscScanUrl: string;
   concurrency: number;
+  delay: number;
 }
 
 const contractAddr = deployer.bot; // flash bot contract address
+const finderAddr = deployer.finder; // finder contract address
 const gasPrice = utils.parseUnits('50', 'gwei');
-const gasLimit = 3000000;
+const gasLimit = 10000000;
 const gasUsage = 550000;
 
 const bscScanApiKey = deployer.polygonScan; // bsc scan API key
@@ -23,6 +26,7 @@ const bscScanUrl = `https://api.polygonscan.com/api?module=stats&action=maticpri
 
 const config: Config = {
   contractAddr: contractAddr,
+  finderAddr,
   logLevel: 'info',
   concurrency: 50,
   // minimumProfit: 50, // in USD
@@ -31,6 +35,7 @@ const config: Config = {
   gasLimit: gasLimit,
   gasUsage: gasUsage,
   bscScanUrl: bscScanUrl,
+  delay: 1000,
 };
 
 export default config;

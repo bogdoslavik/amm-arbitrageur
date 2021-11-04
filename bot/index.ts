@@ -1,20 +1,19 @@
 import { ethers } from 'hardhat';
 import { BigNumber } from 'ethers';
-import pool from '@ricokahler/pool';
 import AsyncLock from 'async-lock';
 
-import { FlashBot } from '../typechain/FlashBot';
-import { Network, tryLoadPairs, getTokens } from './tokens';
+import { FlashBot, ProfitFinder } from '../typechain';
+import { Network, getTokens } from './tokens';
 import { getBnbPrice } from './basetoken-price';
 import log from './log';
 import config from './config';
-import lodash from 'lodash';
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
+  console.log('')
   console.log('profitWei', profitWei.toString());
   let price = 1;
   let decimals = 6; // for USDT and USDC
@@ -36,84 +35,55 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   return clearProfit;
 }
 
-let turn = 0;
-let progress = '-\\|/';
+const progress = '-\\|/';
 
-
-function arbitrageFunc(flashBot: FlashBot, baseTokens: Tokens) {
-  const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
-  return async function arbitrage(pair: ArbitragePair) {
-    // const [pair0, pair1] = pair.pairs;
-    const [pair0, pair1] = pair.pairs;
-
-    let res: [BigNumber, string] & {
-      profit: BigNumber;
-      baseToken: string;
-    };
-    try {
-      res = await flashBot.getProfit(pair0, pair1, {
-        gasPrice: config.gasPrice,
-        gasLimit: config.gasLimit,
-      });
-      log.debug(`Profit on ${pair.symbols}: ${ethers.utils.formatEther(res.profit)}`);
-    } catch (err:any) {
-      if (err.message.startsWith('cannot estimate gas;')) {
-        //console.log(`Cannot estimate gas for ${pair.symbols}`)
-        // console.log(`Cannot estimate gas for ${pair.symbols}`, ' '.repeat(20), '\u001b[1A')
-        //lodash.remove(pairs, p => p==pair);
-        return;
-      }
-      log.error(pair.symbols, err);
-      return;
-    }
-    console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, res.profit.toString(), ' '.repeat(20), '\u001b[1A');
-
-    if (res.profit.gt(BigNumber.from('0'))) {
-      const netProfit = await calcNetProfit(res.profit, res.baseToken, baseTokens);
-      // console.log(progress[turn%progress.length ], turn++, pairs.length, pair.symbols, netProfit, ' '.repeat(20), '\u001b[1A');
-      // console.log(pair, netProfit );
-      if (!netProfit || netProfit < config.minimumProfit) {
-        return;
-      }
-
-      log.info(`Calling arbitrage for ${pair.symbols}, net profit: $${netProfit}`);
-      try {
-        // lock to prevent tx nonce overlap
-        await lock.acquire('flash-bot', async () => {
-          const response = await flashBot.flashArbitrage(pair0, pair1, {
-            gasPrice: config.gasPrice,
-            gasLimit: config.gasLimit,
-          });
-          const receipt = await response.wait(1);
-          log.info(`Tx: ${receipt.transactionHash}`);
-        });
-      } catch (err: any) {
-        if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
-          return;
-        }
-        log.error(err);
-      }
-    }
-  };
-}
-
-let pairs: any;
 
 async function main() {
   const net = Network.MATIC
-  pairs = await tryLoadPairs(net);
   const flashBot = (await ethers.getContractAt('FlashBot', config.contractAddr)) as FlashBot;
+  const finder   = (await ethers.getContractAt('ProfitFinder', config.finderAddr)) as ProfitFinder;
   const [baseTokens] = getTokens(net);
 
+  const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
+
   log.info('Start arbitraging');
+  let pair0: any, pair1: any, profit, baseToken;
+  let turn = 0;
+  let pairsCount = (await finder.pairsCount()).toNumber();
+  console.log('pairsCount', pairsCount);
+
   while (true) {
-    await pool({
-      collection: pairs,
-      task: arbitrageFunc(flashBot, baseTokens),
-      // maxConcurrency: config.concurrency,
-    });
-    await sleep(60000);
-  }
+      [pair0, pair1, profit, baseToken] = await finder.findProfit({
+        gasPrice: config.gasPrice,
+        gasLimit: config.gasLimit,
+      });
+      console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(20), '\u001b[1A');
+      if (profit.gt(0)) {
+        console.log();
+        const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
+        console.log('netProfit', netProfit);
+        if (!netProfit || netProfit < config.minimumProfit) return;
+
+        log.info(`Calling arbitrage for net profit: $${netProfit}`);
+        try {
+          // lock to prevent tx nonce overlap
+          await lock.acquire('flash-bot', async () => {
+            const response = await flashBot.flashArbitrage(pair0, pair1, {
+              gasPrice: config.gasPrice,
+              gasLimit: config.gasLimit,
+            });
+            const receipt = await response.wait(1);
+            log.info(`Tx: ${receipt.transactionHash}`);
+          });
+        } catch (err: any) {
+          if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
+            return;
+          }
+          log.error(err);
+        }
+      }
+      await sleep(config.delay);
+    }
 }
 
 main()
@@ -121,5 +91,5 @@ main()
   .catch((err) => {
     log.error('MAIN:', err);
     throw err;
-    process.exit(1);
+    //process.exit(1);
   });
