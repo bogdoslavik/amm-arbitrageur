@@ -6,6 +6,7 @@
   "scripts": {
     "prettier": "prettier --write 'contracts/**/*.sol'",
     "bot": "hardhat run --network matic bot/index.ts",
+    "finder": "hardhat run --network matic bot/finder.ts",
     "withdrawall": "hardhat run --network matic scripts/withdraw-all.ts",
     "addbasetoken": "hardhat run --network matic scripts/add-basetoken.ts",
     "verify": "hardhat --network matic etherscan-verify --api-key",
