@@ -53,6 +53,7 @@ async function main() {
   console.log('pairsCount', pairsCount);
 
   while (true) {
+    try {
       [pair0, pair1, profit, baseToken] = await finder.findProfit({
         gasPrice: config.gasPrice,
         gasLimit: config.gasLimit,
@@ -83,7 +84,10 @@ async function main() {
         }
       }
       await sleep(config.delay);
+    } catch (e) {
+      log.error(e);
     }
+  }
 }
 
 main()
