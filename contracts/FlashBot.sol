@@ -235,6 +235,7 @@ contract FlashBot is ContractOwnable, Initializable {
             IERC20(info.quoteToken).safeTransfer(info.higherPool, quoteOutAmount);
 
             baseOutAmount = getAmountOut(quoteOutAmount, orderedReserves.b2, orderedReserves.a2, fee2);
+            console.log('-baseOutAmount', baseOutAmount);
 
             (uint256 amount0Out2, uint256 amount1Out2) =
             info.baseTokenSmaller ? (baseOutAmount, uint256(0)) : (uint256(0), baseOutAmount);

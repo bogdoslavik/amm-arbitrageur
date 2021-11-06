@@ -10,7 +10,6 @@ module.exports = async ({getNamedAccounts, deployments}) => {
   const pairs = await tryLoadPairs('matic'); //TODO get network
   for (const key in pairs) {
     const pair = pairs[key];
-    console.log('pair', pair);
     pairsArray.push(pair.pairs[0])
     pairsArray.push(pair.pairs[1])
   }
@@ -28,5 +27,4 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     }
   });
 };
-module.exports.dependencies = ['FlashBot'];
 module.exports.tags = ['ProfitFinder'];
