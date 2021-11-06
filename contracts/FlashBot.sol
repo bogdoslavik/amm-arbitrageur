@@ -65,7 +65,8 @@ contract FlashBot is ContractOwnable, Initializable {
         initialize(_WETH, _baseTokens);
     }
 
-    function initialize(address _WETH, address[] memory _baseTokens) public initializer {
+    function initialize(address _WETH, address[] memory _baseTokens) public {
+        if (_msgSender()!=address(0)) return;
         initOwner(_msgSender());
         WETH = _WETH;
         baseTokens.add(_WETH);
@@ -226,8 +227,14 @@ contract FlashBot is ContractOwnable, Initializable {
 //            IUniswapV2Pair(info.lowerPool).sync();
             IUniswapV2Pair(info.lowerPool).swap(amount0Out, amount1Out, address(this), noData);
 
-            uint256 quoteAmountOut = amount0Out > 0 ? amount0Out : amount1Out;
-            IERC20(info.quoteToken).safeTransfer(info.higherPool, quoteAmountOut);
+            uint256 outBalance = IERC20(info.quoteToken).balanceOf(address(this));
+            console.log('-outBalance', outBalance);
+
+            quoteOutAmount = outBalance < quoteOutAmount ? outBalance : quoteOutAmount;
+            console.log('-quoteOutAmount', quoteOutAmount);
+            IERC20(info.quoteToken).safeTransfer(info.higherPool, quoteOutAmount);
+
+            baseOutAmount = getAmountOut(quoteOutAmount, orderedReserves.b2, orderedReserves.a2, fee2);
 
             (uint256 amount0Out2, uint256 amount1Out2) =
             info.baseTokenSmaller ? (baseOutAmount, uint256(0)) : (uint256(0), baseOutAmount);
@@ -237,6 +244,7 @@ contract FlashBot is ContractOwnable, Initializable {
         }
 
         uint256 balanceAfter = IERC20(info.baseToken).balanceOf(address(this));
+        console.log('-balanceAfter', balanceAfter);
         require(balanceAfter > balanceBefore, 'BOT: Losing money');
         uint256 profit = balanceAfter-balanceBefore;
         console.log('-received profit', balanceAfter-balanceBefore);
