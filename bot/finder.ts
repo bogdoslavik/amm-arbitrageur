@@ -63,24 +63,25 @@ async function main() {
         console.log();
         const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
         console.log('netProfit', netProfit);
-        if (!netProfit || netProfit < config.minimumProfit) return;
-
-        log.info(`Calling arbitrage for net profit: $${netProfit}`);
-        try {
-          // lock to prevent tx nonce overlap
-          await lock.acquire('flash-bot', async () => {
-            const response = await flashBot.flashArbitrage(pair0, pair1, {
-              gasPrice: config.gasPrice,
-              gasLimit: config.gasLimit,
+        if (netProfit && netProfit >= config.minimumProfit) {
+          log.info(`Calling arbitrage for net profit: $${netProfit}`);
+          try {
+            // lock to prevent tx nonce overlap
+            await lock.acquire('flash-bot', async () => {
+              const response = await flashBot.flashArbitrage(pair0, pair1, {
+                gasPrice: config.gasPrice,
+                gasLimit: config.gasLimit,
+              });
+              const receipt = await response.wait(1);
+              log.info(`Tx: ${receipt.transactionHash}`);
             });
-            const receipt = await response.wait(1);
-            log.info(`Tx: ${receipt.transactionHash}`);
-          });
-        } catch (err: any) {
-          if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
-            return;
+          } catch (err: any) {
+            if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
+              return;
+            }
+            log.error(err);
           }
-          log.error(err);
+
         }
       }
       await sleep(config.delay);
