@@ -70,7 +70,7 @@ async function main() {
             await lock.acquire('flash-bot', async () => {
               const response = await flashBot.flashArbitrage(pair0, pair1, {
                 gasPrice: config.gasPrice,
-                gasLimit: config.gasLimit,
+                gasLimit: config.finderGasLimit,
               });
               const receipt = await response.wait(1);
               log.info(`Tx: ${receipt.transactionHash}`);
