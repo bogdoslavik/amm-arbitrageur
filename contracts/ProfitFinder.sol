@@ -47,16 +47,19 @@ contract ProfitFinder is ContractOwnable, Initializable {
         baseToken = address(0);
 
         uint256 len = pools.length;
-
         for (uint256 i = 0; i < len; i+=2) {
             address p0 = pools[i];
             address p1 = pools[i+1];
-            (uint256 _profit, address _baseToken) = bot.getProfit(p0, p1);
-            if (_profit > profit) {
-                profit = _profit;
-                baseToken = _baseToken;
-                pool0 = p0;
-                pool1 = p1;
+            // try for some buggy pools that can revert
+            try bot.getProfit(p0, p1) returns (uint256 _profit, address _baseToken) {
+                if (_profit > profit) {
+                    profit = _profit;
+                    baseToken = _baseToken;
+                    pool0 = p0;
+                    pool1 = p1;
+                }
+            } catch Error(string memory) {
+            } catch (bytes memory) {
             }
         }
     }

@@ -74,12 +74,15 @@ async function main() {
               });
               const receipt = await response.wait(1);
               log.info(`Tx: ${receipt.transactionHash}`);
+              //TODO get function response and when it is false - ban pair for a while
+              // console.log('receipt', receipt);
             });
           } catch (err: any) {
             if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
               return;
             }
-            log.error(err);
+            log.error('Transaction reverted :(');
+            // console.log('err', err);
           }
 
         }
