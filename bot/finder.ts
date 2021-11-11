@@ -32,7 +32,7 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   // console.log('gasCost    :', gasCost);
   const clearProfit = profit-gasCost
   // console.log('clearProfit:', clearProfit);
-  console.log('price:', price, 'profit:', 'gas:', gasCost, profit, 'clear profit:', clearProfit);
+  console.log('price:', price, 'profit:', profit, 'gas:', gasCost, 'clear profit:', clearProfit);
 
   return clearProfit;
 }
@@ -64,7 +64,7 @@ async function main() {
       if (profit.gt(0)) {
         console.log();
         const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
-        console.log('netProfit', netProfit);
+        // console.log('netProfit', netProfit);
         if (netProfit && netProfit >= config.minimumProfit) {
           log.info(`Calling arbitrage for net profit: $${netProfit}`);
           try {
