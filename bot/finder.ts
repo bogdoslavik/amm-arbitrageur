@@ -21,17 +21,19 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
     price = await getBnbPrice();
     decimals = 18;
   }
-  console.log('price', price);
+  // console.log('price      :', price);
   const profitCents = profitWei.mul(100).div(BigNumber.from(10).pow(decimals));
-  console.log('profitCents', profitCents.toString());
+  // console.log('profitCents:', profitCents.toString());
   const profit = profitCents.toNumber() * price / 100;
-  console.log('profit', profit);
+  // console.log('profit     :', profit);
 
   const gasCost = price * parseFloat(ethers.utils.formatEther(config.gasPrice)) *
     (config.gasUsage as number);
-  console.log('gasCost', gasCost);
+  // console.log('gasCost    :', gasCost);
   const clearProfit = profit-gasCost
-  console.log('clearProfit', clearProfit);
+  // console.log('clearProfit:', clearProfit);
+  console.log('price:', price, 'profit:', 'gas:', gasCost, profit, 'clear profit:', clearProfit);
+
   return clearProfit;
 }
 
