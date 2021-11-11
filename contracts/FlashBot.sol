@@ -189,7 +189,7 @@ contract FlashBot is ContractOwnable, Initializable {
 
     /// @notice Do an arbitrage between two Uniswap-like AMM pools
     /// @dev Two pools must contains same token pair
-    function flashArbitrage(address pool0, address pool1) external {
+    function swap(address pool0, address pool1) external returns (bool){
         ArbitrageInfo memory info;
         (info.baseTokenSmaller, info.baseToken, info.quoteToken) = isBaseTokenSmaller(pool0, pool1);
 
@@ -201,7 +201,6 @@ contract FlashBot is ContractOwnable, Initializable {
 
         // avoid stack too deep error
         {
-
             uint256 fee1 = getFee(info.lowerPool);
             console.log('-fee1', fee1);
             uint256 startAmount = balanceBefore;
@@ -217,16 +216,14 @@ contract FlashBot is ContractOwnable, Initializable {
             require(baseOutAmount > startAmount, 'BOT: Arbitrage fail, no profit');
             console.log('-estimated profit:', (baseOutAmount - startAmount) /* / 1 ether*/);
 
-            bytes memory noData;
-
             require(startAmount<=balanceBefore, 'BOT: Not enough base token balance');
 
             IERC20(info.baseToken).safeTransfer(info.lowerPool, startAmount);
             (uint256 amount0Out, uint256 amount1Out) =
             info.baseTokenSmaller ? (uint256(0), quoteOutAmount) : (quoteOutAmount, uint256(0));
-//            IUniswapV2Pair(info.lowerPool).sync();
-            IUniswapV2Pair(info.lowerPool).swap(amount0Out, amount1Out, address(this), noData);
-
+            if (!swap(info.lowerPool, amount0Out, amount1Out)) {
+                return false;
+            }
             uint256 outBalance = IERC20(info.quoteToken).balanceOf(address(this));
             console.log('-outBalance', outBalance);
 
@@ -239,9 +236,9 @@ contract FlashBot is ContractOwnable, Initializable {
 
             (uint256 amount0Out2, uint256 amount1Out2) =
             info.baseTokenSmaller ? (baseOutAmount, uint256(0)) : (uint256(0), baseOutAmount);
-//            IUniswapV2Pair(info.higherPool).sync();
-            IUniswapV2Pair(info.higherPool).swap(amount0Out2, amount1Out2, address(this), noData);
-
+            if (!swap(info.higherPool, amount0Out2, amount1Out2)) {
+                return false;
+            }
         }
 
         uint256 balanceAfter = IERC20(info.baseToken).balanceOf(address(this));
@@ -250,7 +247,32 @@ contract FlashBot is ContractOwnable, Initializable {
         uint256 profit = balanceAfter-balanceBefore;
         console.log('-received profit', balanceAfter-balanceBefore);
         IERC20(info.baseToken).transfer(getOwner(), profit);
+        return true;
+    }
 
+    function swap(address pool, uint256 amount0Out, uint256 amount1Out) private returns (bool) {
+        bytes memory noData;
+        try IUniswapV2Pair(pool).swap(amount0Out, amount1Out, address(this), noData) {
+        } catch Error(string memory reason) {
+            if (stringsEquals(reason, "TSP: K too low")) {
+                IUniswapV2Pair(pool).sync();
+                return false;
+            }
+            revert(reason);
+        }
+        return true;
+    }
+
+    function stringsEquals(string memory s1, string memory s2) private pure returns (bool) {
+        bytes memory b1 = bytes(s1);
+        bytes memory b2 = bytes(s2);
+        uint256 l1 = b1.length;
+        uint256 l2 = b2.length;
+        if (l1 != l2) return false;
+        for (uint256 i=0; i<l1; i++) {
+            if (b1[i] != b2[i]) return false;
+        }
+        return true;
     }
 
 

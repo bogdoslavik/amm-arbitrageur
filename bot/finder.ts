@@ -68,7 +68,7 @@ async function main() {
           try {
             // lock to prevent tx nonce overlap
             await lock.acquire('flash-bot', async () => {
-              const response = await flashBot.flashArbitrage(pair0, pair1, {
+              const response = await flashBot.swap(pair0, pair1, {
                 gasPrice: config.gasPrice,
                 gasLimit: config.finderGasLimit,
               });
