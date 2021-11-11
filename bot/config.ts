@@ -13,6 +13,7 @@ interface Config {
   bscScanUrl: string;
   concurrency: number;
   delay: number;
+  finderDelay: number;
 }
 
 const contractAddr = deployer.bot; // flash bot contract address
@@ -39,6 +40,7 @@ const config: Config = {
   gasUsage: gasUsage,
   bscScanUrl: bscScanUrl,
   delay: 500,
+  finderDelay: 100,
 };
 
 export default config;

@@ -14,7 +14,7 @@ function sleep(ms: number) {
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
   console.log('')
-  console.log('profitWei', profitWei.toString());
+  // console.log('profitWei', profitWei.toString());
   let price = 1;
   let decimals = 6; // for USDT and USDC
   if (baseTokens.wmatic && baseTokens.wmatic.address == address) {
@@ -32,7 +32,7 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   // console.log('gasCost    :', gasCost);
   const clearProfit = profit-gasCost
   // console.log('clearProfit:', clearProfit);
-  console.log('price:', price, 'profit:', profit, 'gas:', gasCost, 'clear profit:', clearProfit);
+  log.info(`price: ${price} profit: ${profit} gas: ${gasCost} clear profit: $${clearProfit.toFixed(2)}`);
 
   return clearProfit;
 }
@@ -89,7 +89,7 @@ async function main() {
 
         }
       }
-      await sleep(config.delay);
+      await sleep(config.finderDelay);
     } catch (e) {
       log.error(e);
     }
