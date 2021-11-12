@@ -62,7 +62,7 @@ async function main() {
       });
       console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(20), '\u001b[1A');
       if (profit.gt(0)) {
-        console.log();
+        //console.log();
         const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
         // console.log('netProfit', netProfit);
         if (netProfit && netProfit >= config.minimumProfit) {

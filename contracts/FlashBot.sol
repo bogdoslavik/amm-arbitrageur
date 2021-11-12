@@ -252,14 +252,7 @@ contract FlashBot is ContractOwnable, Initializable {
 
     function swap(address pool, uint256 amount0Out, uint256 amount1Out) private returns (bool) {
         bytes memory noData;
-        try IUniswapV2Pair(pool).swap(amount0Out, amount1Out, address(this), noData) {
-        } catch Error(string memory reason) {
-            if (stringsEquals(reason, "TSP: K too low")) {
-                IUniswapV2Pair(pool).sync();
-                return false;
-            }
-            revert(reason);
-        }
+        IUniswapV2Pair(pool).swap(amount0Out, amount1Out, address(this), noData);
         return true;
     }
 
