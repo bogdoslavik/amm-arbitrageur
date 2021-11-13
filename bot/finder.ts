@@ -15,12 +15,13 @@ function sleep(ms: number) {
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
   console.log('')
-  console.log('address', address, 'matic', baseTokens.wmatic);
+  console.log('address', address, 'wmatic', baseTokens.wmatic);
   // console.log('profitWei', profitWei.toString());
   let price = 1;
   let decimals = 6; // for USDT and USDC
   if (baseTokens.wmatic && toLower(baseTokens.wmatic.address) == toLower(address)) {
     price = await getBnbPrice();
+    console.log('WMATIC price', price);
     decimals = 18;
   }
   console.log('decimals   :', decimals);
