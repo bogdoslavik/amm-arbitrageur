@@ -64,7 +64,7 @@ async function main() {
   let pair0: any, pair1: any, profit, baseToken;
   let turn = 0;
   let pairsCount = (await finder.pairsCount()).toNumber();
-  log.info(`pairs count: ${pairsCount}`);
+  log.info(`Finder pairs count: ${pairsCount}`);
 
   while (true) {
     try {
