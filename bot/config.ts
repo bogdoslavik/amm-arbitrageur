@@ -19,7 +19,7 @@ interface Config {
 const contractAddr = deployer.bot; // flash bot contract address
 const finderAddr = deployer.finder; // finder contract address
 const gasPrice = utils.parseUnits('100', 'gwei');
-const gasLimit = 15000000;
+const gasLimit = 1000000;
 const finderGasLimit = 15000000;
 const gasUsage = 650000; // Overall gas usage by arbitrage() func
 
@@ -33,7 +33,7 @@ const config: Config = {
   logLevel: 'info',
   concurrency: 50,
   // minimumProfit: 50, // in USD
-  minimumProfit: 0.10, // in USD
+  minimumProfit: 0.20, // in USD
   gasPrice: gasPrice,
   gasLimit: gasLimit,
   finderGasLimit: finderGasLimit,
