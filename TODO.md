@@ -1,5 +1,7 @@
 # TODO
-- ban for hour transactions returned false
+- fix matic price calc 
+- ban for hour reverted transactions or returned false
+- sync reverted "TSP: K too low" transaction from script
 - fix wmatic price in finder calculation
 - refill matic balance (unwrap 10 WMATIC when balance less 1)
 - 

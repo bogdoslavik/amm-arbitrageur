@@ -1,12 +1,13 @@
 import { ethers } from 'hardhat';
 import { BigNumber } from 'ethers';
-import AsyncLock from 'async-lock';
+// import AsyncLock from 'async-lock';
 
 import { FlashBot, ProfitFinder } from '../typechain';
 import { Network, getTokens } from './tokens';
 import { getBnbPrice } from './basetoken-price';
 import log from './log';
 import config from './config';
+import { toLower } from 'lodash';
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -14,18 +15,20 @@ function sleep(ms: number) {
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
   console.log('')
+  console.log('address', address, 'matic', baseTokens.wmatic);
   // console.log('profitWei', profitWei.toString());
   let price = 1;
   let decimals = 6; // for USDT and USDC
-  if (baseTokens.wmatic && baseTokens.wmatic.address == address) {
+  if (baseTokens.wmatic && toLower(baseTokens.wmatic.address) == toLower(address)) {
     price = await getBnbPrice();
     decimals = 18;
   }
-  // console.log('price      :', price);
+  console.log('decimals   :', decimals);
+  console.log('price      :', price);
   const profitCents = profitWei.mul(100).div(BigNumber.from(10).pow(decimals));
-  // console.log('profitCents:', profitCents.toString());
+  console.log('profitCents:', profitCents.toString());
   const profit = profitCents.toNumber() * price / 100;
-  // console.log('profit     :', profit);
+  console.log('profit     :', profit);
 
   const gasCost = price * parseFloat(ethers.utils.formatEther(config.gasPrice)) *
     (config.gasUsage as number);
@@ -46,19 +49,19 @@ async function main() {
   const finder   = (await ethers.getContractAt('ProfitFinder', config.finderAddr)) as ProfitFinder;
   const [baseTokens] = getTokens(net);
 
-  const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
+  // const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
 
   log.info('Start arbitraging');
   let pair0: any, pair1: any, profit, baseToken;
   let turn = 0;
   let pairsCount = (await finder.pairsCount()).toNumber();
-  console.log('pairsCount', pairsCount);
+  log.info('pairsCount', pairsCount);
 
   while (true) {
     try {
       [pair0, pair1, profit, baseToken] = await finder.findProfit({
         gasPrice: config.gasPrice,
-        gasLimit: config.gasLimit,
+        gasLimit: config.finderGasLimit,
       });
       console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(20), '\u001b[1A');
       if (profit.gt(0)) {
@@ -69,7 +72,7 @@ async function main() {
           log.info(`Calling arbitrage for net profit: $${netProfit}`);
           try {
             // lock to prevent tx nonce overlap
-            await lock.acquire('flash-bot', async () => {
+            // await lock.acquire('flash-bot', async () => {
               const response = await flashBot.swap(pair0, pair1, {
                 gasPrice: config.gasPrice,
                 gasLimit: config.finderGasLimit,
@@ -78,13 +81,13 @@ async function main() {
               log.info(`Tx: ${receipt.transactionHash}`);
               //TODO get function response and when it is false - ban pair for a while
               // console.log('receipt', receipt);
-            });
+            // });
           } catch (err: any) {
             if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
               return;
             }
             log.error('Transaction reverted :(');
-            // console.log('err', err);
+            console.log('err', err);
           }
 
         }
