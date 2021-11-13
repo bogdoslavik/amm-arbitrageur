@@ -75,8 +75,8 @@ async function main() {
       console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(40), '\u001b[1A');
       if (profit.gt(0)) {
 
-        const bannedAt: number|undefined = bans[pair0+pair1];
-        const banMs = time() - (toNumber(bannedAt)+5*60*1000);
+        const bannedTo: number|undefined = bans[pair0+pair1];
+        const banMs = toNumber(bannedTo) - time();
         if (banMs>0) {
           console.info(`Banned for ${banMs/1000} sec`)
           return
@@ -102,8 +102,8 @@ async function main() {
             // });
           } catch (err: any) {
             log.error('Transaction reverted :(');
-            bans[pair0+pair1] = (new Date()).getTime();
-            console.log('err', err);
+            bans[pair0+pair1] = (new Date()).getTime() + 5*60*1000 ; // add pair to bans
+            // console.log('err', err);
           }
 
         }
