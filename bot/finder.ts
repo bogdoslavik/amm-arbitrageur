@@ -14,7 +14,6 @@ function sleep(ms: number) {
 }
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
-  console.log('')
   // console.log('address', address, 'wmatic', baseTokens.wmatic.address);
   // console.log('profitWei', profitWei.toString());
   let price = 1;
@@ -73,7 +72,7 @@ async function main() {
         gasPrice: config.gasPrice,
         gasLimit: config.finderGasLimit,
       });
-      console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(20), '\u001b[1A');
+      console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(40), '\u001b[1A');
       if (profit.gt(0)) {
 
         const bannedAt: number|undefined = bans[pair0+pair1];
@@ -88,7 +87,7 @@ async function main() {
         const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
         // console.log('netProfit', netProfit);
         if (netProfit && netProfit >= config.minimumProfit) {
-          log.info(`Calling arbitrage for net profit: $${netProfit}`);
+          log.info(`Calling arbitrage for net profit: $${netProfit.toFixed(2)}`);
           try {
             // lock to prevent tx nonce overlap
             // await lock.acquire('flash-bot', async () => {

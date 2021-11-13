@@ -13,7 +13,8 @@ module.exports = async ({getNamedAccounts, deployments}) => {
     pairsArray.push(pair.pairs[0])
     pairsArray.push(pair.pairs[1])
   }
-  console.log('pairsArray\n', pairsArray.join(',\n'));
+  console.log('pairsArray');
+  console.log(pairsArray.join(',\n'));
   console.log('pairs.length', pairs.length);
   console.log('pairsArray.length', pairsArray.length);
 
