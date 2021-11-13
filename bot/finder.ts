@@ -7,7 +7,7 @@ import { Network, getTokens } from './tokens';
 import { getBnbPrice } from './basetoken-price';
 import log from './log';
 import config from './config';
-import { toLower } from 'lodash';
+import { toLower, toNumber } from 'lodash';
 
 function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -35,13 +35,20 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
   // console.log('gasCost    :', gasCost);
   const clearProfit = profit-gasCost
   // console.log('clearProfit:', clearProfit);
-  log.info(`price: ${price} profit: ${profit} gas: ${gasCost} clear profit: $${clearProfit.toFixed(2)}`);
+  console.log(`price: ${price} profit: ${profit} gas: ${gasCost} clear profit: $${clearProfit.toFixed(2)}`);
 
   return clearProfit;
 }
 
 const progress = '-\\|/';
 
+function time(): number {
+  return (new Date()).getTime();
+}
+
+interface Bans {
+  [key: string]: number;
+}
 
 async function main() {
   const net = Network.MATIC
@@ -49,13 +56,15 @@ async function main() {
   const finder   = (await ethers.getContractAt('ProfitFinder', config.finderAddr)) as ProfitFinder;
   const [baseTokens] = getTokens(net);
 
+  const bans:Bans = {};
+
   // const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
 
   log.info('Start arbitraging');
   let pair0: any, pair1: any, profit, baseToken;
   let turn = 0;
   let pairsCount = (await finder.pairsCount()).toNumber();
-  log.info('pairsCount', pairsCount);
+  log.info(`pairs count: ${pairsCount}`);
 
   while (true) {
     try {
@@ -65,6 +74,15 @@ async function main() {
       });
       console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(20), '\u001b[1A');
       if (profit.gt(0)) {
+
+        const bannedAt: number|undefined = bans[pair0+pair1];
+        const banMs = time() - (toNumber(bannedAt)+5*60*1000);
+        if (banMs>0) {
+          console.info(`Banned for ${banMs/1000} sec`)
+          return
+        }
+        delete bans[pair0+pair1]
+
         //console.log();
         const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
         // console.log('netProfit', netProfit);
@@ -83,10 +101,8 @@ async function main() {
               // console.log('receipt', receipt);
             // });
           } catch (err: any) {
-            if (err.message === 'Too much pending tasks' || err.message === 'async-lock timed out') {
-              return;
-            }
             log.error('Transaction reverted :(');
+            bans[pair0+pair1] = (new Date()).getTime();
             console.log('err', err);
           }
 
