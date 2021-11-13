@@ -2,16 +2,25 @@
 pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/proxy/utils/Initializable.sol';
+import '@openzeppelin/contracts/utils/structs/EnumerableSet.sol';
+import '@openzeppelin/contracts/token/ERC20/IERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
+import '@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol';
 import './libraries/ContractOwnable.sol';
 import './FlashBot.sol';
 import 'hardhat/console.sol';
 
 contract ProfitFinder is ContractOwnable, Initializable {
-    FlashBot public bot;
-    address[] public pools;
+    using Decimal for Decimal.D256;
+    using SafeMath for uint256;
+    using SafeERC20 for IERC20;
+    using EnumerableSet for EnumerableSet.AddressSet;
+
     uint constant private _PRECISION = 10000;
     address constant private _TETUSWAP_FACTORY = 0x684d8c187be836171a1Af8D533e4724893031828;
 
+    FlashBot public bot;
+    address[] public pools;
     // ADD NEW VARS BELOW !!!
 
     constructor (address payable _bot) {
@@ -43,61 +52,62 @@ contract ProfitFinder is ContractOwnable, Initializable {
     }
 
     function findProfit() public view
-    returns (address pool0, address pool1, uint256 profit, address baseToken) {
-        profit = 0;
-        pool0 = address(0);
-        pool1 = address(0);
-        baseToken = address(0);
+    returns (address profitablePool0, address profitablePool1, uint256 maxProfit, address profitableBaseToken) {
+        maxProfit = 0;
+        profitablePool0 = address(0);
+        profitablePool1 = address(0);
+        profitableBaseToken = address(0);
+
+        // base tokes cache
+        address[] memory baseTokensArray = bot.getBaseTokens();
+        // balances cache
+        uint256[] memory baseTokensBalances = new uint256[](baseTokensArray.length);
 
         uint256 len = pools.length;
         for (uint256 i = 0; i < len; i+=2) {
-            address p0 = pools[i];
-            address p1 = pools[i+1];
-            // try for some buggy pools that can revert
-            try bot.getProfit(p0, p1) returns (uint256 _profit, address _baseToken) {
-                if (_profit > profit) {
-                    profit = _profit;
-                    baseToken = _baseToken;
-                    pool0 = p0;
-                    pool1 = p1;
+            address pool0 = pools[i];
+            address pool1 = pools[i+1];
+            address pairBaseToken;
+
+            // getProfit func
+            uint256 profit = 0;
+            { // stack to deep
+                (bool baseTokenSmaller, address baseToken, ,uint256 baseTokenIndex) =
+                    isBaseTokenSmaller(pool0, pool1, baseTokensArray);
+                pairBaseToken = baseToken;
+
+                (address p1, address p2, OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
+
+                // cache base token balance balance
+                uint256 baseStartAmount = baseTokensBalances[baseTokenIndex];
+                if (baseStartAmount == 0) {
+                    baseStartAmount = IERC20(baseToken).balanceOf(address(this));
+                    baseTokensBalances[baseTokenIndex] = baseStartAmount;
                 }
-            } catch Error(string memory) {
-            } catch (bytes memory) {
+
+                // sell base token on lower price pool for quite token,
+                uint256 fee1 = getFee(p1);
+                uint256 quoteOutAmount = getAmountOut(baseStartAmount, orderedReserves.a1, orderedReserves.b1, fee1);
+                // sell quote token on higher price pool
+                uint256 fee2 = getFee(p2);
+                uint256 baseOutAmount = getAmountOut(quoteOutAmount, orderedReserves.b2, orderedReserves.a2, fee2);
+
+                if (baseOutAmount < baseStartAmount) {
+                    profit = 0;
+                } else {
+                    profit = baseOutAmount - baseStartAmount;
+                    console.log('+profit', profit);
+                }
+            }
+
+            if (profit > maxProfit) {
+                maxProfit = profit;
+                profitableBaseToken = pairBaseToken;
+                profitablePool0 = pool0;
+                profitablePool1 = pool1;
             }
         }
     }
-
-    /// @notice Calculate how much profit we can by arbitraging between two pools
-    function getProfit(address pool0, address pool1) external view
-    returns (uint256 profit, address baseToken) {
-        (bool baseTokenSmaller, address _baseToken, ) = isBaseTokenSmaller(pool0, pool1);
-        baseToken = _baseToken;
-
-        (address p1, address p2, OrderedReserves memory orderedReserves) = getOrderedReserves(pool0, pool1, baseTokenSmaller);
-
-        uint256 baseStartAmount = IERC20(baseToken).balanceOf(address(this));
-        console.log('+baseStartAmount', baseStartAmount);
-
-        // sell base token on lower price pool for quite token,
-        uint256 fee1 = getFee(p1);
-        console.log('+fee1', fee1);
-        uint256 quoteOutAmount = getAmountOut(baseStartAmount, orderedReserves.a1, orderedReserves.b1, fee1);
-        console.log('+quoteOutAmount', quoteOutAmount);
-
-        // sell quote token on higher price pool
-        uint256 fee2 = getFee(p2);
-        console.log('+fee2', fee2);
-        uint256 baseOutAmount = getAmountOut(quoteOutAmount, orderedReserves.b2, orderedReserves.a2, fee2);
-        console.log('+baseOutAmount', baseOutAmount);
-
-        if (baseOutAmount < baseStartAmount) {
-            profit = 0;
-        } else {
-            profit = baseOutAmount - baseStartAmount;
-            console.log('+profit', profit);
-        }
-    }
-
 
     /// @dev Compare price denominated in quote token between two pools
     /// We borrow base token by using flash swap from lower price pool and sell them to higher price pool
@@ -168,13 +178,14 @@ contract ProfitFinder is ContractOwnable, Initializable {
         return 30;
     }
 
-    function isBaseTokenSmaller(address pool0, address pool1)
+    function isBaseTokenSmaller(address pool0, address pool1, address[] memory baseTokensArray)
     internal
     view
     returns (
         bool baseSmaller,
         address baseToken,
-        address quoteToken
+        address quoteToken,
+        uint256 baseTokenIndex
     )
     {
         require(pool0 != pool1, 'BOT: Same pair address');
@@ -182,11 +193,20 @@ contract ProfitFinder is ContractOwnable, Initializable {
         (address pool1Token0, address pool1Token1) = (IUniswapV2Pair(pool1).token0(), IUniswapV2Pair(pool1).token1());
         require(pool0Token0 < pool0Token1 && pool1Token0 < pool1Token1, 'BOT: Non standard uniswap AMM pair');
         require(pool0Token0 == pool1Token0 && pool0Token1 == pool1Token1, 'BOT: Require same token pair');
-        require(baseTokens.contains(pool0Token0) || baseTokens.contains(pool0Token1), 'BOT: No base token in pair');
+//        require(baseTokens.contains(pool0Token0) || baseTokens.contains(pool0Token1), 'BOT: No base token in pair');
 
-        (baseSmaller, baseToken, quoteToken) = baseTokens.contains(pool0Token0)
-        ? (true, pool0Token0, pool0Token1)
-        : (false, pool0Token1, pool0Token0);
+        baseTokenIndex = 0;
+        bool baseTokensContains = false;
+        uint256 len = baseTokensArray.length;
+        for (uint256 i=0; i<len; i++) {
+            if (baseTokensArray[i] == pool0Token0) {
+                baseTokensContains = true;
+                baseTokenIndex = i;
+            }
+        }
+        (baseSmaller, baseToken, quoteToken) = baseTokensContains
+            ? (true, pool0Token0, pool0Token1)
+            : (false, pool0Token1, pool0Token0);
     }
 
 }

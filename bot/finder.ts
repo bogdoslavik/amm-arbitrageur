@@ -15,7 +15,7 @@ function sleep(ms: number) {
 
 async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: Tokens): Promise<number> {
   console.log('')
-  console.log('address', address, 'wmatic', baseTokens.wmatic);
+  // console.log('address', address, 'wmatic', baseTokens.wmatic.address);
   // console.log('profitWei', profitWei.toString());
   let price = 1;
   let decimals = 6; // for USDT and USDC
@@ -24,19 +24,19 @@ async function calcNetProfit(profitWei: BigNumber, address: string, baseTokens: 
     console.log('WMATIC price', price);
     decimals = 18;
   }
-  console.log('decimals   :', decimals);
-  console.log('price      :', price);
+  // console.log('decimals   :', decimals);
+  // console.log('price      :', price);
   const profitCents = profitWei.mul(100).div(BigNumber.from(10).pow(decimals));
-  console.log('profitCents:', profitCents.toString());
+  // console.log('profitCents:', profitCents.toString());
   const profit = profitCents.toNumber() * price / 100;
-  console.log('profit     :', profit);
+  // console.log('profit     :', profit);
 
   const gasCost = price * parseFloat(ethers.utils.formatEther(config.gasPrice)) *
     (config.gasUsage as number);
   // console.log('gasCost    :', gasCost);
   const clearProfit = profit-gasCost
   // console.log('clearProfit:', clearProfit);
-  console.log(`price: ${price} profit: ${profit} gas: ${gasCost} clear profit: $${clearProfit.toFixed(2)}`);
+  console.log(`price: ${price} profit: ${profit} gas: ${gasCost} clear profit: $${clearProfit.toFixed(2)}`, '\u001b[1A');
 
   return clearProfit;
 }
