@@ -96,7 +96,7 @@ contract ProfitFinder is ContractOwnable, Initializable {
                     profit = 0;
                 } else {
                     profit = baseOutAmount - baseStartAmount;
-                    console.log('+profit', profit);
+//                    console.log('+profit', profit);
                 }
             }
 
@@ -147,8 +147,8 @@ contract ProfitFinder is ContractOwnable, Initializable {
             ? (pool1Reserve0, pool1Reserve1, pool0Reserve0, pool0Reserve1)
             : (pool1Reserve1, pool1Reserve0, pool0Reserve1, pool0Reserve0);
         }
-        console.log('-Buy from pool:', lowerPool);
-        console.log('-Sell  to pool:', higherPool);
+//        console.log('-Buy from pool:', lowerPool);
+//        console.log('-Sell  to pool:', higherPool);
     }
 
     // copy from UniswapV2Library
