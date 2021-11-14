@@ -92,7 +92,7 @@ async function main() {
             // await lock.acquire('flash-bot', async () => {
               const response = await flashBot.swap(pair0, pair1, {
                 gasPrice: config.gasPrice,
-                gasLimit: config.finderGasLimit,
+                gasLimit: config.gasLimit,
               });
               const receipt = await response.wait(1);
               log.info(`Tx: ${receipt.transactionHash}`);
