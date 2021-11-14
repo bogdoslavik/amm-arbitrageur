@@ -59,6 +59,7 @@ contract FlashBot is ContractOwnable, Initializable {
     event Withdrawn(address indexed to, uint256 indexed value);
     event BaseTokenAdded(address indexed token);
     event BaseTokenRemoved(address indexed token);
+    event Profit(address indexed base, address indexed quote, uint256 profit);
 
     constructor(address _WETH, address[] memory _baseTokens) {
         //TODO remove for proxy deploy (add fixture to test first)
@@ -247,6 +248,7 @@ contract FlashBot is ContractOwnable, Initializable {
         uint256 profit = balanceAfter-balanceBefore;
         console.log('-received profit', balanceAfter-balanceBefore);
         IERC20(info.baseToken).transfer(getOwner(), profit);
+        emit Profit(info.baseToken, info.quoteToken, profit);
         return true;
     }
 

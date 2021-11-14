@@ -53,11 +53,9 @@ async function main() {
   const net = Network.MATIC
 
   const pairs = await tryLoadPairs(net);
-  const pairToSymbols: any = {}
+  const pairToSymbols: any = { '0x0000000000000000000000000000000000000000' : 'No profit'}
   for (const i in pairs) {
-    console.log('i', i);
     const pair = pairs[i]
-    console.log('pair', pair);
     pairToSymbols[pair.pairs[0]] = pair.symbols;
     pairToSymbols[pair.pairs[1]] = pair.symbols;
   }
