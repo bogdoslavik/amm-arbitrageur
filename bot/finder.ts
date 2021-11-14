@@ -78,7 +78,7 @@ async function main() {
         const banMs = toNumber(bannedTo) - time();
         if (banMs>0) {
           console.info(`Banned for ${banMs/1000} sec`)
-          return
+          continue
         }
         delete bans[pair0+pair1]
 
