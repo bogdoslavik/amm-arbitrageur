@@ -3,7 +3,7 @@ import { BigNumber } from 'ethers';
 // import AsyncLock from 'async-lock';
 
 import { FlashBot, ProfitFinder } from '../typechain';
-import { Network, getTokens } from './tokens';
+import { Network, getTokens, tryLoadPairs } from './tokens';
 import { getBnbPrice } from './basetoken-price';
 import log from './log';
 import config from './config';
@@ -51,6 +51,17 @@ interface Bans {
 
 async function main() {
   const net = Network.MATIC
+
+  const pairs = await tryLoadPairs(net);
+  const pairToSymbols: any = {}
+  for (const i in pairs) {
+    console.log('i', i);
+    const pair = pairs[i]
+    console.log('pair', pair);
+    pairToSymbols[pair.pairs[0]] = pair.symbols;
+    pairToSymbols[pair.pairs[1]] = pair.symbols;
+  }
+
   const flashBot = (await ethers.getContractAt('FlashBot', config.contractAddr)) as FlashBot;
   const finder   = (await ethers.getContractAt('ProfitFinder', config.finderAddr)) as ProfitFinder;
   const [baseTokens] = getTokens(net);
@@ -67,11 +78,13 @@ async function main() {
 
   while (true) {
     try {
+      await sleep(config.finderDelay);
+
       [pair0, pair1, profit, baseToken] = await finder.findProfit({
         gasPrice: config.gasPrice,
         gasLimit: config.finderGasLimit,
       });
-      console.log(progress[turn % progress.length], turn++, profit.toString(), ' '.repeat(40), '\u001b[1A');
+      console.log(progress[turn % progress.length], turn++, pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
       if (profit.gt(0)) {
 
         const bannedTo: number|undefined = bans[pair0+pair1];
@@ -86,7 +99,7 @@ async function main() {
         const netProfit = await calcNetProfit(profit, baseToken, baseTokens);
         // console.log('netProfit', netProfit);
         if (netProfit && netProfit >= config.minimumProfit) {
-          log.info(`Calling arbitrage for net profit: $${netProfit.toFixed(2)}`);
+          log.info(`Calling arbitrage for net profit: ${pairToSymbols[pair0]} $${netProfit.toFixed(2)}`);
           try {
             // lock to prevent tx nonce overlap
             // await lock.acquire('flash-bot', async () => {
@@ -107,7 +120,6 @@ async function main() {
 
         }
       }
-      await sleep(config.finderDelay);
     } catch (e) {
       log.error(e);
     }
