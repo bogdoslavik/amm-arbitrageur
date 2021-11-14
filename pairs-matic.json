@@ -1,0 +1,1395 @@
+[
+  {
+    "symbols": "TETU-WMATIC",
+    "pairs": [
+      "0x0196959958d923F2854E684B1694fb9B2d17AeE9",
+      "0x34dA30D1f8Ef9799F5Ae3B9989e1dEf926052e78"
+    ]
+  },
+  {
+    "symbols": "TETU-WMATIC",
+    "pairs": [
+      "0x0196959958d923F2854E684B1694fb9B2d17AeE9",
+      "0x1B955f66f7EA354d29e9469C50a54C1577B52503"
+    ]
+  },
+  {
+    "symbols": "TETU-WMATIC",
+    "pairs": [
+      "0x34dA30D1f8Ef9799F5Ae3B9989e1dEf926052e78",
+      "0x1B955f66f7EA354d29e9469C50a54C1577B52503"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xbC7b96467F4e33B943ecD999432055127f600B61",
+      "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xbC7b96467F4e33B943ecD999432055127f600B61",
+      "0xadbF1854e5883eB8aa7BAf50705338739e558E5b"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xbC7b96467F4e33B943ecD999432055127f600B61",
+      "0x679B8Ab80F298bF802fB294137765C6386D43dcA"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E",
+      "0xadbF1854e5883eB8aa7BAf50705338739e558E5b"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xc4e595acDD7d12feC385E5dA5D43160e8A0bAC0E",
+      "0x679B8Ab80F298bF802fB294137765C6386D43dcA"
+    ]
+  },
+  {
+    "symbols": "WETH-WMATIC",
+    "pairs": [
+      "0xadbF1854e5883eB8aa7BAf50705338739e558E5b",
+      "0x679B8Ab80F298bF802fB294137765C6386D43dcA"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0xa6eaf9F1d3Af45c68417679D5204dd808E5B3C47",
+      "0x8531c4e29491fE6e5e87AF6054FC20FcCf0b4290"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0xa6eaf9F1d3Af45c68417679D5204dd808E5B3C47",
+      "0xf6B87181BF250af082272E3f448eC3238746Ce3D"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0xa6eaf9F1d3Af45c68417679D5204dd808E5B3C47",
+      "0xb20defacdC409C7676caB9b3ac7AC0D4383B0634"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0x8531c4e29491fE6e5e87AF6054FC20FcCf0b4290",
+      "0xf6B87181BF250af082272E3f448eC3238746Ce3D"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0x8531c4e29491fE6e5e87AF6054FC20FcCf0b4290",
+      "0xb20defacdC409C7676caB9b3ac7AC0D4383B0634"
+    ]
+  },
+  {
+    "symbols": "WBTC-WMATIC",
+    "pairs": [
+      "0xf6B87181BF250af082272E3f448eC3238746Ce3D",
+      "0xb20defacdC409C7676caB9b3ac7AC0D4383B0634"
+    ]
+  },
+  {
+    "symbols": "LINK-WMATIC",
+    "pairs": [
+      "0x68ccE7049013ca8df91CD512ceFEe8FC0bb8d926",
+      "0x3c986748414A812e455DCd5418246B8fdEd5C369"
+    ]
+  },
+  {
+    "symbols": "LINK-WMATIC",
+    "pairs": [
+      "0x68ccE7049013ca8df91CD512ceFEe8FC0bb8d926",
+      "0x1ED1d74107D3C07f75B81630a7055a0a7560b804"
+    ]
+  },
+  {
+    "symbols": "LINK-WMATIC",
+    "pairs": [
+      "0x3c986748414A812e455DCd5418246B8fdEd5C369",
+      "0x1ED1d74107D3C07f75B81630a7055a0a7560b804"
+    ]
+  },
+  {
+    "symbols": "UNI-WMATIC",
+    "pairs": [
+      "0x7FAe0648684ec375176E2d0F171cA9814798D920",
+      "0xc45092e7e73951c6668f6C46AcFCa9F2B1c69aEf"
+    ]
+  },
+  {
+    "symbols": "FTM-WMATIC",
+    "pairs": [
+      "0x3B4F1A04FB1A171EF136D742cF4A77b5bB7e28C1",
+      "0x2b072522b045b7d578ef6D8A2A31B060CabeCA46"
+    ]
+  },
+  {
+    "symbols": "GRT-WMATIC",
+    "pairs": [
+      "0x8e77380906692991888978626CF703A4635730bE",
+      "0xEfc807a269402A812AC70C47de3E7aDB1b8Ca641"
+    ]
+  },
+  {
+    "symbols": "MANA-WMATIC",
+    "pairs": [
+      "0x672D867B6F598a24fa0588c7bc181019D7dB84CA",
+      "0x6b0Ce31eAD9b14c2281D80A5DDE903AB0855313A"
+    ]
+  },
+  {
+    "symbols": "MANA-WMATIC",
+    "pairs": [
+      "0x672D867B6F598a24fa0588c7bc181019D7dB84CA",
+      "0x289bC484769FE8a74F6Dfcf64c56d6B7EA9fDda5"
+    ]
+  },
+  {
+    "symbols": "MANA-WMATIC",
+    "pairs": [
+      "0x6b0Ce31eAD9b14c2281D80A5DDE903AB0855313A",
+      "0x289bC484769FE8a74F6Dfcf64c56d6B7EA9fDda5"
+    ]
+  },
+  {
+    "symbols": "AAVE-WMATIC",
+    "pairs": [
+      "0x7d88D931504D04BFBEE6F9745297A93063CAb24c",
+      "0x0554059D42E26f35CC958581C71FdfD92405d02f"
+    ]
+  },
+  {
+    "symbols": "AMP-WMATIC",
+    "pairs": [
+      "0xc2fC02600BFf93e9167D16B79c35f372e13D0a18",
+      "0x909dc3398885fb633332bD088d8CDA55195C741a"
+    ]
+  },
+  {
+    "symbols": "SAND-WMATIC",
+    "pairs": [
+      "0x8bB9E9E743E1782c9D95152de0be6E233a3250b4",
+      "0x71EC9101c6A348492cF5EC2CDc4A2676EAbFE33A"
+    ]
+  },
+  {
+    "symbols": "SUSHI-WMATIC",
+    "pairs": [
+      "0x597A9bc3b24C2A578CCb3aa2c2C62C39427c6a49",
+      "0x0B3a76D33d93b2651dbf03B102EEFa9500E89243"
+    ]
+  },
+  {
+    "symbols": "COMP-WMATIC",
+    "pairs": [
+      "0xF8326C8aED2d21364fdD7D4ffc0C771755d8F55c",
+      "0xbc7de021CC17a0399bEe6b9FE9531E78c10526a7"
+    ]
+  },
+  {
+    "symbols": "CEL-WMATIC",
+    "pairs": [
+      "0xD0B5C647160229eEF2B16fCDa300D65467a1C7E0",
+      "0x7D341B151DbFBFe97714f3EdEc98E26f2DD0e532"
+    ]
+  },
+  {
+    "symbols": "BAT-WMATIC",
+    "pairs": [
+      "0x31019E5Ebc6a834c9F6333B948758e6c7985Fd98",
+      "0x0838A1b1295eF395Ac91761adB5025c67f304816"
+    ]
+  },
+  {
+    "symbols": "CRV-WMATIC",
+    "pairs": [
+      "0x140EA3fae80A2732eBc4DE0511FF84EF1A575217",
+      "0x634F9d9f8680349b518cb615017C105aF46CCFd2"
+    ]
+  },
+  {
+    "symbols": "CRV-WMATIC",
+    "pairs": [
+      "0x140EA3fae80A2732eBc4DE0511FF84EF1A575217",
+      "0xfEC6F467B2eE93a0Bafb580784314A1001219581"
+    ]
+  },
+  {
+    "symbols": "CRV-WMATIC",
+    "pairs": [
+      "0x634F9d9f8680349b518cb615017C105aF46CCFd2",
+      "0xfEC6F467B2eE93a0Bafb580784314A1001219581"
+    ]
+  },
+  {
+    "symbols": "YFI-WMATIC",
+    "pairs": [
+      "0xc4A681264F93B8DB5d554EFb4de6eE011Ada091b",
+      "0x020955c170FD4fFC85c42f9A1B02e4f599606cF5"
+    ]
+  },
+  {
+    "symbols": "TEL-WMATIC",
+    "pairs": [
+      "0x87aCD3D73bc4d56e5A4Fb36071De929a4571CdA0",
+      "0x9b5c71936670e9f1F36e63F03384De7e06E60d2a"
+    ]
+  },
+  {
+    "symbols": "TEL-WMATIC",
+    "pairs": [
+      "0x87aCD3D73bc4d56e5A4Fb36071De929a4571CdA0",
+      "0xEE10F77282C44F0AD5523Bf5f66149a2D0ED8C5f"
+    ]
+  },
+  {
+    "symbols": "TEL-WMATIC",
+    "pairs": [
+      "0x9b5c71936670e9f1F36e63F03384De7e06E60d2a",
+      "0xEE10F77282C44F0AD5523Bf5f66149a2D0ED8C5f"
+    ]
+  },
+  {
+    "symbols": "renBTC-WMATIC",
+    "pairs": [
+      "0x24ecfB015ef8F3492FEf2001Deb30f9B0ac51269",
+      "0xD729a51eE0Fe5970eE3E52b54a132098E4DDAE3b"
+    ]
+  },
+  {
+    "symbols": "AMAAVE-WMATIC",
+    "pairs": [
+      "0x4c222176332c977caB4c40201F84087982090142",
+      "0xe77F58d9cA49142AFEfD48A651c14404d0159494"
+    ]
+  },
+  {
+    "symbols": "AMUSDT-WMATIC",
+    "pairs": [
+      "0xFCD023e3b511B3c572EFa0092c092A559dB1C211",
+      "0x395DEc157bbbeadA400B6780E35De31f4eB58503"
+    ]
+  },
+  {
+    "symbols": "POLYMOON-WMATIC",
+    "pairs": [
+      "0xdBF546292cB28A6b593E97dC50896E6C44d8F638",
+      "0x1FC85e3d2FEA755FD76759FE8412652A18da00fC"
+    ]
+  },
+  {
+    "symbols": "MALT-WMATIC",
+    "pairs": [
+      "0x6ECF55f000E819e213290bCF14Bec1A2B18Fb5bF",
+      "0x16D3C5D8A2ce452cdc607eB91e77A6be16C183bD"
+    ]
+  },
+  {
+    "symbols": "DOJO-WMATIC",
+    "pairs": [
+      "0xB086DeB2D90fF135B0C7A991a01eB36a98000732",
+      "0x13aE55518c1F3C45fAEB74e2aBB148377F59dD74"
+    ]
+  },
+  {
+    "symbols": "SHARK-WMATIC",
+    "pairs": [
+      "0xCc203F5a88EB7252c9cC74171d148fBA0E6477C1",
+      "0x796888F8FF4ED857Ba314522307D338D08807e5f"
+    ]
+  },
+  {
+    "symbols": "AMWMATIC-WMATIC",
+    "pairs": [
+      "0x61e71424996F8a693bE3727AbF46e2a300E5c7a8",
+      "0xfD87730E299411F50d6A837914CE6A250349B4A7"
+    ]
+  },
+  {
+    "symbols": "CHUM-WMATIC",
+    "pairs": [
+      "0x1482A37Dc62a17d1008F6e7E82ad2962C1f11e76",
+      "0x0b0548e99B99739BE18DE9d78819bbf6Bb3B8d3c"
+    ]
+  },
+  {
+    "symbols": "POLYGOLD-WMATIC",
+    "pairs": [
+      "0x9b0423CB3317e8b1ce3827aacEE49Fdbf1081a71",
+      "0x9Caf7BbeB28E4e69DbB255017D231d98d0e1CA9C"
+    ]
+  },
+  {
+    "symbols": "YIELD-WMATIC",
+    "pairs": [
+      "0x32A768E3F7dC13D4E8975c37183fEf6289A8F090",
+      "0x9EeDc252ba8628273494A12a820Ec84028de1Bc8"
+    ]
+  },
+  {
+    "symbols": "PCAKE-WMATIC",
+    "pairs": [
+      "0x0a9518be1777689001c0e3b7cC2dD82A83779FC0",
+      "0xe313A552e5DCc3aAb5D16A74668B403E76aDe4BD"
+    ]
+  },
+  {
+    "symbols": "YCORN-WMATIC",
+    "pairs": [
+      "0x5af908ddFb1CECeB577381e1969e8ca20CF05e2f",
+      "0x4Aba0EE33aCEFD918cA9751a3c67F8941B0c6623"
+    ]
+  },
+  {
+    "symbols": "LION-WMATIC",
+    "pairs": [
+      "0x18fc107902adf2ADc05d10C6C6158e68dDeFdCED",
+      "0x133374815f5894C68d392c82755B5aF1f7D3f8DD"
+    ]
+  },
+  {
+    "symbols": "AURORA-WMATIC",
+    "pairs": [
+      "0x271C31e7a795e58474A2F4E27ae5B7d0127300FC",
+      "0x55E7aDC472D945032b00911816A49DBef140F713"
+    ]
+  },
+  {
+    "symbols": "SRAT-WMATIC",
+    "pairs": [
+      "0xEeC26683EBfe559AfE0336A930837D88947C4e51",
+      "0x64958654412FccAd8b46e68c49075Bf6d64CDad7"
+    ]
+  },
+  {
+    "symbols": "CRYSTL-WMATIC",
+    "pairs": [
+      "0xbb86EE2285abE310178aE5c511547e7e75c784e6",
+      "0xd8509274B4a3d5Cd7632e029e01287080FD5f043"
+    ]
+  },
+  {
+    "symbols": "MOON-WMATIC",
+    "pairs": [
+      "0x01C5bb9cE9b8804dDF93E58cA823C7FBB67B2F8d",
+      "0x7Ce38f49D696255aCa849D2BFC5C361B4e5c405d"
+    ]
+  },
+  {
+    "symbols": "BONE-WMATIC",
+    "pairs": [
+      "0x4026895A93D720083E4469eE675156A8Ff8D3853",
+      "0x2d10b334646F6e61F2556c0f7eda2fF3D82d001e"
+    ]
+  },
+  {
+    "symbols": "BONE-WMATIC",
+    "pairs": [
+      "0x4026895A93D720083E4469eE675156A8Ff8D3853",
+      "0x7Ad61CFA4F3D052F57081993C2E19c958bD395Ab"
+    ]
+  },
+  {
+    "symbols": "BONE-WMATIC",
+    "pairs": [
+      "0x2d10b334646F6e61F2556c0f7eda2fF3D82d001e",
+      "0x7Ad61CFA4F3D052F57081993C2E19c958bD395Ab"
+    ]
+  },
+  {
+    "symbols": "PZAP-WMATIC",
+    "pairs": [
+      "0xF2E280f73AcE457a22dd1d7ae989146C790a98da",
+      "0x6C172E4DBc69DFf708047E9C5fA9a3aa4fE53E3b"
+    ]
+  },
+  {
+    "symbols": "XDO-WMATIC",
+    "pairs": [
+      "0xAa5843865437ed4448BF95904f114264F0E4B113",
+      "0x6C426EfB354E4eCA10A95e0719195eed9Ef32e9C"
+    ]
+  },
+  {
+    "symbols": "PGOV-WMATIC",
+    "pairs": [
+      "0xC698b8a1391F88F497A4EF169cA85b492860b502",
+      "0xfD2Fa42Fc8a65C9cc833deccbCA755979cd29f16"
+    ]
+  },
+  {
+    "symbols": "HONOR-WMATIC",
+    "pairs": [
+      "0x8a8d5Fd0D4741D734b4CA9E85c6e9cF624a1ecca",
+      "0xAeE0e1F6a9cDdEbaea980b35364B47a879C0D100"
+    ]
+  },
+  {
+    "symbols": "DMAGIC-WMATIC",
+    "pairs": [
+      "0x8F1dbED8545d743CCf752Ff1805142778928c835",
+      "0x92928272c2D5E6230350B1d9791eDcf9263644D0"
+    ]
+  },
+  {
+    "symbols": "PSWAMP-WMATIC",
+    "pairs": [
+      "0xcE82706cB5A4c61B3b2daa637df1cD11f02A217C",
+      "0x1A477272f6030EAB135Cb3BA40646f3eb26b382a"
+    ]
+  },
+  {
+    "symbols": "ROLL-WMATIC",
+    "pairs": [
+      "0x905DCc700fcce9a49b7D907E371230995a45ebCE",
+      "0x94AfF1C53F0A120373EDe74a375944719CE0fAE3"
+    ]
+  },
+  {
+    "symbols": "ROLL-WMATIC",
+    "pairs": [
+      "0x905DCc700fcce9a49b7D907E371230995a45ebCE",
+      "0xA4f176CcbA7bACcFEf6CE2a78Ff042f08b997E4d"
+    ]
+  },
+  {
+    "symbols": "ROLL-WMATIC",
+    "pairs": [
+      "0x94AfF1C53F0A120373EDe74a375944719CE0fAE3",
+      "0xA4f176CcbA7bACcFEf6CE2a78Ff042f08b997E4d"
+    ]
+  },
+  {
+    "symbols": "GBTS-WMATIC",
+    "pairs": [
+      "0x197248986b3E680658b764e58c82411551c43852",
+      "0x15a9840616Fdd8DA726d6DF3a922F75E59943608"
+    ]
+  },
+  {
+    "symbols": "BONE2-WMATIC",
+    "pairs": [
+      "0x7Cb3F5D8a3C4605D466c577d2707c3299112dBBc",
+      "0xeb168C9D678dC34D64337F4eA12cf14ed6fbE34B"
+    ]
+  },
+  {
+    "symbols": "PYQ-WMATIC",
+    "pairs": [
+      "0x69b847b0364FEEf5f4b30CC4398458882ab1311d",
+      "0xeC7125Cc6ED7A8e5E5809c2AF03B290a02630438"
+    ]
+  },
+  {
+    "symbols": "PUP-WMATIC",
+    "pairs": [
+      "0x0ABFBCfe1fdcb15c394FE6DCB5D0579f8fEA0c91",
+      "0xBC68d2A5920c4ffaEa20E2BE48a0E09055481976"
+    ]
+  },
+  {
+    "symbols": "MOCA-WMATIC",
+    "pairs": [
+      "0xBbc87d71Cf6B392E4b93FF5C933cf7FDD07702aE",
+      "0xc4576E2a3747d819ea06a0DA1648A2Fae8BC3083"
+    ]
+  },
+  {
+    "symbols": "PUSD-WMATIC",
+    "pairs": [
+      "0x10a6f9d4CAFc6eF8dA384429e9A1c4f662acE79E",
+      "0x022268Fc83395ACE2BD0129A8D752E35C24Ff90d"
+    ]
+  },
+  {
+    "symbols": "FISH-WMATIC",
+    "pairs": [
+      "0xcBF6f78981e63Ef813cb71852d72A060b583EECF",
+      "0x289cf2B63c5Edeeeab89663639674d9233E8668E"
+    ]
+  },
+  {
+    "symbols": "FISH-WMATIC",
+    "pairs": [
+      "0xcBF6f78981e63Ef813cb71852d72A060b583EECF",
+      "0x44825bf3B74695bD72ED247D62DD755e67B7ED87"
+    ]
+  },
+  {
+    "symbols": "FISH-WMATIC",
+    "pairs": [
+      "0x289cf2B63c5Edeeeab89663639674d9233E8668E",
+      "0x44825bf3B74695bD72ED247D62DD755e67B7ED87"
+    ]
+  },
+  {
+    "symbols": "OMEN-WMATIC",
+    "pairs": [
+      "0xe9Bb87c33d1607B06fb3988b31E9601BD21Ff3bD",
+      "0x5fC65c7E8f9fc98Bda2F39C9369B2f6C00624181"
+    ]
+  },
+  {
+    "symbols": "XUSD-WMATIC",
+    "pairs": [
+      "0xc2FEC6e52A2e4622eb91E5ae4f23F0eA73c47Aa2",
+      "0x7fD24dEA7C03b3B49FdD57e75f9b7cd1e8C414aE"
+    ]
+  },
+  {
+    "symbols": "ANGEL-WMATIC",
+    "pairs": [
+      "0x3F8a51fa5a41B0A352A00cC2d41af8141a597195",
+      "0x2A7D27d8E4fcD52F4D285BF15c227A26BcB36e76"
+    ]
+  },
+  {
+    "symbols": "WHIRL-WMATIC",
+    "pairs": [
+      "0x96ceD02396BFA0E8c8A3218B5913fd8Db2EBd4b9",
+      "0x528b0B602888931d8307D36D50B1876Af8DC94Fa"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-WMATIC",
+    "pairs": [
+      "0x47187193994550F53bEeAF0538005b38122Fb54a",
+      "0x264e6BC3f95633725658e4D9640f7F7D9100F6AC"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-WMATIC",
+    "pairs": [
+      "0x47187193994550F53bEeAF0538005b38122Fb54a",
+      "0x1a881D021d346C5433B2cf8FB46Ee00Dec89070d"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-WMATIC",
+    "pairs": [
+      "0x264e6BC3f95633725658e4D9640f7F7D9100F6AC",
+      "0x1a881D021d346C5433B2cf8FB46Ee00Dec89070d"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-WMATIC",
+    "pairs": [
+      "0x77c2D38E7A0603d530F16Ad9C4CaD38a1B61C2F2",
+      "0x7506b68822C9bBA3f1b672C9d9c863A92aE94133"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-WMATIC",
+    "pairs": [
+      "0x77c2D38E7A0603d530F16Ad9C4CaD38a1B61C2F2",
+      "0xC46991072C7eAC184F7bd69d3122cd1750300b27"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-WMATIC",
+    "pairs": [
+      "0x7506b68822C9bBA3f1b672C9d9c863A92aE94133",
+      "0xC46991072C7eAC184F7bd69d3122cd1750300b27"
+    ]
+  },
+  {
+    "symbols": "SPADE-WMATIC",
+    "pairs": [
+      "0xCcCEc4A90b3435065f5e1feC6346be9Da1B7B5eD",
+      "0x46A139e6f19b69F5D383F1e1a10BDfb8D3E03f1F"
+    ]
+  },
+  {
+    "symbols": "QI-WMATIC",
+    "pairs": [
+      "0xCe00673a5a3023EBE47E3D46e4D59292e921dc7c",
+      "0x9A8b2601760814019B7E6eE0052E25f1C623D1E6"
+    ]
+  },
+  {
+    "symbols": "PEAR-WMATIC",
+    "pairs": [
+      "0x7b57D2eBDCdF3344510dE4453852b15c1eFEd250",
+      "0x1c78F50AC5eD06381C928e5466e46134a00C1D95"
+    ]
+  },
+  {
+    "symbols": "PEAR-WMATIC",
+    "pairs": [
+      "0x7b57D2eBDCdF3344510dE4453852b15c1eFEd250",
+      "0x51BEffd36EB8c81a9b440B7ee51f98ba9eFda707"
+    ]
+  },
+  {
+    "symbols": "PEAR-WMATIC",
+    "pairs": [
+      "0x1c78F50AC5eD06381C928e5466e46134a00C1D95",
+      "0x51BEffd36EB8c81a9b440B7ee51f98ba9eFda707"
+    ]
+  },
+  {
+    "symbols": "ICE-WMATIC",
+    "pairs": [
+      "0x51bFedee30C9fE90A964113e461FaE339bf5E41B",
+      "0x160f6b4363D98B961a9DD034076a4bD97468C477"
+    ]
+  },
+  {
+    "symbols": "MOONED-WMATIC",
+    "pairs": [
+      "0xd3EaE22Cc379F4033a0b0927730694EE429Be7b9",
+      "0x823d7A6bB9E8D7078c324C1ECEBc6A2660f04afE"
+    ]
+  },
+  {
+    "symbols": "KOGECOIN-WMATIC",
+    "pairs": [
+      "0xd1343D93E4506f4F6f679440Dc53554Da20caD98",
+      "0x3885503aEF5E929fCB7035FBDcA87239651C8154"
+    ]
+  },
+  {
+    "symbols": "KOM-WMATIC",
+    "pairs": [
+      "0xcE955D4e7AA7228a12DFF628Ad620820F3b405C8",
+      "0xe0a1fD98E9d151BABce27FA169Ae5D0fF180F1a4"
+    ]
+  },
+  {
+    "symbols": "KOM-WMATIC",
+    "pairs": [
+      "0xcE955D4e7AA7228a12DFF628Ad620820F3b405C8",
+      "0xFAcd7B70951ffF43094C33d3a83A8c892EC78ad8"
+    ]
+  },
+  {
+    "symbols": "KOM-WMATIC",
+    "pairs": [
+      "0xe0a1fD98E9d151BABce27FA169Ae5D0fF180F1a4",
+      "0xFAcd7B70951ffF43094C33d3a83A8c892EC78ad8"
+    ]
+  },
+  {
+    "symbols": "POLYBUNNY-WMATIC",
+    "pairs": [
+      "0x433102f6901A1d6d8781daC08578bF9A2eE5b4c5",
+      "0xE38D4aB32315115109286c1b20F762763E43dC12"
+    ]
+  },
+  {
+    "symbols": "MIMATIC-WMATIC",
+    "pairs": [
+      "0x619F43DB4A1Fd21F582B35D6628936d40A0ABdb6",
+      "0x7805B64e2d99412d3b8F10Dfe8fc55217C5cc954"
+    ]
+  },
+  {
+    "symbols": "DINO-WMATIC",
+    "pairs": [
+      "0x345E929eC4b771B73e874777cd9526546bEe3bBe",
+      "0x6d310371d82003551d25c0e9eE850aE68e07C97b"
+    ]
+  },
+  {
+    "symbols": "TETU-USDC",
+    "pairs": [
+      "0x80fF4e4153883d770204607eb4aF9994739C72DC",
+      "0xF1c97B5d031f09f64580Fe79FE30110A8C971bF9"
+    ]
+  },
+  {
+    "symbols": "TETU-USDC",
+    "pairs": [
+      "0x80fF4e4153883d770204607eb4aF9994739C72DC",
+      "0x22E2BDaBEbA9b5ff8924275DbE47aDE5cf7b822B"
+    ]
+  },
+  {
+    "symbols": "TETU-USDC",
+    "pairs": [
+      "0xF1c97B5d031f09f64580Fe79FE30110A8C971bF9",
+      "0x22E2BDaBEbA9b5ff8924275DbE47aDE5cf7b822B"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0xad13Ad855FcAc6ffe6dbBa9362873228937Fba53",
+      "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0xad13Ad855FcAc6ffe6dbBa9362873228937Fba53",
+      "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0xad13Ad855FcAc6ffe6dbBa9362873228937Fba53",
+      "0xd928Ce1d0F2642e44615768761C0F00c23E0d588"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27",
+      "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0x34965ba0ac2451A34a0471F04CCa3F990b8dea27",
+      "0xd928Ce1d0F2642e44615768761C0F00c23E0d588"
+    ]
+  },
+  {
+    "symbols": "WETH-USDC",
+    "pairs": [
+      "0x853Ee4b2A13f8a742d64C8F088bE7bA2131f670d",
+      "0xd928Ce1d0F2642e44615768761C0F00c23E0d588"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xA2Ac987AF47CC54250fAE6b8b8f0742E8C531d74",
+      "0xD02b870c556480491c70AaF98C297fddd93F6f5C"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xA2Ac987AF47CC54250fAE6b8b8f0742E8C531d74",
+      "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xA2Ac987AF47CC54250fAE6b8b8f0742E8C531d74",
+      "0x30eEf213D4B9C809f5776Ae56cC39f02f19F742f"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xD02b870c556480491c70AaF98C297fddd93F6f5C",
+      "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xD02b870c556480491c70AaF98C297fddd93F6f5C",
+      "0x30eEf213D4B9C809f5776Ae56cC39f02f19F742f"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDC",
+    "pairs": [
+      "0xF6a637525402643B0654a54bEAd2Cb9A83C8B498",
+      "0x30eEf213D4B9C809f5776Ae56cC39f02f19F742f"
+    ]
+  },
+  {
+    "symbols": "LINK-USDC",
+    "pairs": [
+      "0x8bC8e9F621EE8bAbda8DC0E6Fc991aAf9BF8510b",
+      "0x70ceE55c98F6DA2685807611f115eA737d4a248E"
+    ]
+  },
+  {
+    "symbols": "LINK-USDC",
+    "pairs": [
+      "0x8bC8e9F621EE8bAbda8DC0E6Fc991aAf9BF8510b",
+      "0x36dF04d3304B73b816b5A8300Fe51c2f5853fA1B"
+    ]
+  },
+  {
+    "symbols": "LINK-USDC",
+    "pairs": [
+      "0x70ceE55c98F6DA2685807611f115eA737d4a248E",
+      "0x36dF04d3304B73b816b5A8300Fe51c2f5853fA1B"
+    ]
+  },
+  {
+    "symbols": "UNI-USDC",
+    "pairs": [
+      "0x7c5b028ea6a2a123BB1c8be5d3d2935d4532961B",
+      "0x75eE48f37d0b8E3899B53695622932dC3c052e41"
+    ]
+  },
+  {
+    "symbols": "MANA-USDC",
+    "pairs": [
+      "0xe1c99c7481421E299bf3945E5e91817e6d60c91B",
+      "0x0E7fD04303E8bcF23B00b8CE1aE92c351492A939"
+    ]
+  },
+  {
+    "symbols": "AAVE-USDC",
+    "pairs": [
+      "0x3E9a0586088caEb2aDFf32B0C06CfA44151c7a5B",
+      "0x7c76B6B3FE14831A39C0fec908DA5f17180df677"
+    ]
+  },
+  {
+    "symbols": "AAVE-USDC",
+    "pairs": [
+      "0x3E9a0586088caEb2aDFf32B0C06CfA44151c7a5B",
+      "0x145E99a991a1594e76E2ac4f329bFD6aB84A95Bb"
+    ]
+  },
+  {
+    "symbols": "AAVE-USDC",
+    "pairs": [
+      "0x7c76B6B3FE14831A39C0fec908DA5f17180df677",
+      "0x145E99a991a1594e76E2ac4f329bFD6aB84A95Bb"
+    ]
+  },
+  {
+    "symbols": "AMP-USDC",
+    "pairs": [
+      "0x3EBE1c1176f5EC2e71301547a8e9451cFc334D76",
+      "0x89C237863448FFE01E4CC7CF26397531Bbf3b015"
+    ]
+  },
+  {
+    "symbols": "SUSHI-USDC",
+    "pairs": [
+      "0xE15E9d2a5af5c1d3524bBC594DDc4a7D80aD27CD",
+      "0xD9f57D9ed738AE20C5a60241a32Fd076e69AF005"
+    ]
+  },
+  {
+    "symbols": "SNX-USDC",
+    "pairs": [
+      "0x5518037AB78552b4a043d89522aCA16206ef9eaf",
+      "0x90A2ae705c36e51ec52450AF3Bd7a2b8aFe9A1b9"
+    ]
+  },
+  {
+    "symbols": "CRV-USDC",
+    "pairs": [
+      "0x982c529Fd47CBa8f627c2aBE30286c69aB593501",
+      "0x8982D71337003cd172198739238adA0D5d0BD2Fe"
+    ]
+  },
+  {
+    "symbols": "LITHIUM-USDC",
+    "pairs": [
+      "0xe65f2534B5ef886ba6926f398A8704A6989d869d",
+      "0x1b9c6d8b372C410426CF803fd20a815aA7B454c2"
+    ]
+  },
+  {
+    "symbols": "CHUM-USDC",
+    "pairs": [
+      "0x516f3d5C323ab9AC8F92B14040d3b2dDB4dBAC35",
+      "0x1Ba93fe92688e46f22dbCD47f2dCA2e49005074e"
+    ]
+  },
+  {
+    "symbols": "POLYGOLD-USDC",
+    "pairs": [
+      "0xAfCA68EA7Ee8F9d7d26aCdeD3aD115Dd21cd4Cb0",
+      "0xBfbb75Bc384F70A2cF3567b9e2d89cc475a213Cf"
+    ]
+  },
+  {
+    "symbols": "YIELD-USDC",
+    "pairs": [
+      "0xbB518730FecA3d7571628405894507D1aD851A7E",
+      "0xA1bdc426c981460f2029E9286938Dc411e17E753"
+    ]
+  },
+  {
+    "symbols": "VERT-USDC",
+    "pairs": [
+      "0xF0EE8D912d367EfE0e38e7308dcCFECf63586B4b",
+      "0x668269d6E5D2c2dE31D132Ac218044211643622B"
+    ]
+  },
+  {
+    "symbols": "AURORA-USDC",
+    "pairs": [
+      "0x20Af5a6Eff03464DeeE77d0CD8014C64B64DAe51",
+      "0x7cF4Bf4753D892f4A0846f0A5742a090cF16701f"
+    ]
+  },
+  {
+    "symbols": "CRYSTL-USDC",
+    "pairs": [
+      "0x1A3a468a6D865cE58EDda1550bc16DE0ef8AE5D8",
+      "0xD4221FaCF3ce900964844a01d8C62acebB016BF5"
+    ]
+  },
+  {
+    "symbols": "MOON-USDC",
+    "pairs": [
+      "0x40F697d26dc65bF40Fb6c3b21E7dc054a3dA5FE9",
+      "0xdeDEB36B03006D545D244B6E5818549FED805Ceb"
+    ]
+  },
+  {
+    "symbols": "BONE-USDC",
+    "pairs": [
+      "0xBC03bd77799f82688d8867a84c0022e1969CE0Ed",
+      "0xc4DA04f471210063f8C79a09D6152D63085451a5"
+    ]
+  },
+  {
+    "symbols": "SGAJ-USDC",
+    "pairs": [
+      "0x7116b32DAb15c8F3806D39f9623fC56dcdF33D68",
+      "0xF3fE0F89b11018E82059ae5f7495159521B25dc1"
+    ]
+  },
+  {
+    "symbols": "HONOR-USDC",
+    "pairs": [
+      "0x46489f825f11d7473D20279699b108aCAA246e73",
+      "0x4Bd5dF4300b7c5309cB1A0143e4A6d0184B878e1"
+    ]
+  },
+  {
+    "symbols": "DMAGIC-USDC",
+    "pairs": [
+      "0xf9FA7aFF709F756148ECd007FB81F6c6010488b6",
+      "0xff98829D6B0C851bD82BA9784a789F27d86BdAF1"
+    ]
+  },
+  {
+    "symbols": "PSWAMP-USDC",
+    "pairs": [
+      "0xe401880acf2bA38f1E751A0b69015517E0D5A551",
+      "0x3c514DCB5b9AC31b492bAdfCd28100166ca7Cf8a"
+    ]
+  },
+  {
+    "symbols": "ROLL-USDC",
+    "pairs": [
+      "0xe4C3784682Ea762Cd61F7A35F177c7c29f3a310D",
+      "0x4c0E2d0c7d3487DA7bCb24dE41b373c41a2F2182"
+    ]
+  },
+  {
+    "symbols": "GBTS-USDC",
+    "pairs": [
+      "0xa5a6B1064f7e6D1aD11aEeC5506AEa5E1ADb546C",
+      "0xbB93f7e7295565553EB77aAdd9C0f0C632069414"
+    ]
+  },
+  {
+    "symbols": "BONE2-USDC",
+    "pairs": [
+      "0xbeF2DD804649A3C5420F08A7C84A9562Df001ebb",
+      "0x2CC05c660f35E8692CA99dB95922CB744d44ef20"
+    ]
+  },
+  {
+    "symbols": "PYQ-USDC",
+    "pairs": [
+      "0xd3924Ad8F881514efF89503Be9027B877E9e2bd0",
+      "0x2Bcb48B48F288C8E27559DE2b695B5F9Fb409BD0"
+    ]
+  },
+  {
+    "symbols": "PUP-USDC",
+    "pairs": [
+      "0x8d5Ee0596DB94F520629cE539a726F442F52E7E5",
+      "0x767f8BD67a5f133BdDF3b285c5E2FD3D157A2cdC"
+    ]
+  },
+  {
+    "symbols": "PUP-USDC",
+    "pairs": [
+      "0x8d5Ee0596DB94F520629cE539a726F442F52E7E5",
+      "0x4DE8DaCa454144E9850B762eDc174256e4E86c3d"
+    ]
+  },
+  {
+    "symbols": "PUP-USDC",
+    "pairs": [
+      "0x767f8BD67a5f133BdDF3b285c5E2FD3D157A2cdC",
+      "0x4DE8DaCa454144E9850B762eDc174256e4E86c3d"
+    ]
+  },
+  {
+    "symbols": "BALL-USDC",
+    "pairs": [
+      "0x29F2EF1a93Cb031a1C7DfAf8D687d785F277964C",
+      "0x0097692463fD591aEf388851FE2d756505f498AC"
+    ]
+  },
+  {
+    "symbols": "PUSD-USDC",
+    "pairs": [
+      "0xc30D6Bc42911Aa21A63E51c7121B33b3E65cC3c4",
+      "0xc552aCD0fE6B9CB6fDFc181679891B654Cfb97D6"
+    ]
+  },
+  {
+    "symbols": "FISH-USDC",
+    "pairs": [
+      "0x809b0C50789676e07292289B872DeEF0E6f09E6f",
+      "0x0Df9e46C0eAEdf41B9d4bbE2Cea2aF6E8181b033"
+    ]
+  },
+  {
+    "symbols": "FISH-USDC",
+    "pairs": [
+      "0x809b0C50789676e07292289B872DeEF0E6f09E6f",
+      "0xA101C2F9A8EBD0Ec497637BEB5b8b0798Ae96355"
+    ]
+  },
+  {
+    "symbols": "FISH-USDC",
+    "pairs": [
+      "0x0Df9e46C0eAEdf41B9d4bbE2Cea2aF6E8181b033",
+      "0xA101C2F9A8EBD0Ec497637BEB5b8b0798Ae96355"
+    ]
+  },
+  {
+    "symbols": "MEEB-USDC",
+    "pairs": [
+      "0x70d68673EB59F291663a1E720316c03610471e22",
+      "0x003C88bD94f503407224E7e64Ace63EAcfFeF3c6"
+    ]
+  },
+  {
+    "symbols": "OMEN-USDC",
+    "pairs": [
+      "0x7270b4773372152A7B6486A851c8eD458574F208",
+      "0x50409De292f5F821888702e9538Bf15Fa273dFE6"
+    ]
+  },
+  {
+    "symbols": "OMEN-USDC",
+    "pairs": [
+      "0x7270b4773372152A7B6486A851c8eD458574F208",
+      "0xAeadB9fb4Fe65E8A14F93F4410F9424f123C7a34"
+    ]
+  },
+  {
+    "symbols": "OMEN-USDC",
+    "pairs": [
+      "0x50409De292f5F821888702e9538Bf15Fa273dFE6",
+      "0xAeadB9fb4Fe65E8A14F93F4410F9424f123C7a34"
+    ]
+  },
+  {
+    "symbols": "XUSD-USDC",
+    "pairs": [
+      "0xf6604594b29F344502e0ED147a6Def592368B5E6",
+      "0x83A33adB0aacf0e77b4d1fAE36f2CFdca6Cd78E7"
+    ]
+  },
+  {
+    "symbols": "GFI-USDC",
+    "pairs": [
+      "0xF7E1375f33423ae06E9166c9ee7e889eCF07Cb60",
+      "0xb1f3555A7c3753AB4E6DF1d66CFDB25477a36Ce7"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-USDC",
+    "pairs": [
+      "0xd6D1Ec04A4C8f73C423438c8574bb0179A9E836B",
+      "0x7b3E67E63906d8576466c2f48158A30be0a9e36c"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-USDC",
+    "pairs": [
+      "0xd6D1Ec04A4C8f73C423438c8574bb0179A9E836B",
+      "0x88f670a996D918D7646F81110C0255A13Cd177cA"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-USDC",
+    "pairs": [
+      "0x7b3E67E63906d8576466c2f48158A30be0a9e36c",
+      "0x88f670a996D918D7646F81110C0255A13Cd177cA"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-USDC",
+    "pairs": [
+      "0x3A80Bd4ADCCEB321c6dF186b3d01D5b384929156",
+      "0x07f2286e3af9433E80C441389Df81e342f6386e0"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-USDC",
+    "pairs": [
+      "0x3A80Bd4ADCCEB321c6dF186b3d01D5b384929156",
+      "0x5DE6a3CcA10d3F788EEdbD4923e31D4658bf6f9a"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-USDC",
+    "pairs": [
+      "0x07f2286e3af9433E80C441389Df81e342f6386e0",
+      "0x5DE6a3CcA10d3F788EEdbD4923e31D4658bf6f9a"
+    ]
+  },
+  {
+    "symbols": "SPADE-USDC",
+    "pairs": [
+      "0x6Fd8aAe9f85A7Db14c45453daAB81aa3085E4bA3",
+      "0xc271d4E35744a8d0249b06336634EB715f9617ff"
+    ]
+  },
+  {
+    "symbols": "QI-USDC",
+    "pairs": [
+      "0x609143Aa2b97Ad1495c3A8Db05DB92B4E4218a4d",
+      "0x1dBba57B3d9719c007900D21e8541e90bC6933EC"
+    ]
+  },
+  {
+    "symbols": "PEAR-USDC",
+    "pairs": [
+      "0xe11520c5B6428e6FD2636287F0724b7031e46A44",
+      "0xe2f7e698034548b15841b4e8B90Bb5237E305a81"
+    ]
+  },
+  {
+    "symbols": "PEAR-USDC",
+    "pairs": [
+      "0xe11520c5B6428e6FD2636287F0724b7031e46A44",
+      "0xa1d88Ce0d030B51342a05f9Dcc10AC4214592DAc"
+    ]
+  },
+  {
+    "symbols": "PEAR-USDC",
+    "pairs": [
+      "0xe2f7e698034548b15841b4e8B90Bb5237E305a81",
+      "0xa1d88Ce0d030B51342a05f9Dcc10AC4214592DAc"
+    ]
+  },
+  {
+    "symbols": "ICE-USDC",
+    "pairs": [
+      "0x961c1D55d19Bad193a1a1964DcEa694e029E2EE8",
+      "0x6be0dc66e5A88Ce652f3ad89237E59257D6Eb0F2"
+    ]
+  },
+  {
+    "symbols": "ICE-USDC",
+    "pairs": [
+      "0x961c1D55d19Bad193a1a1964DcEa694e029E2EE8",
+      "0xDA736b8489ddbf4C56E09Fe2A59563d845FCFDc2"
+    ]
+  },
+  {
+    "symbols": "ICE-USDC",
+    "pairs": [
+      "0x6be0dc66e5A88Ce652f3ad89237E59257D6Eb0F2",
+      "0xDA736b8489ddbf4C56E09Fe2A59563d845FCFDc2"
+    ]
+  },
+  {
+    "symbols": "KOGECOIN-USDC",
+    "pairs": [
+      "0xf421Dd9497A28BB72DBB18B240a77195F8757e50",
+      "0x1c5A040ea7b4DF2c3e7370961491aaB7B27e5Ad8"
+    ]
+  },
+  {
+    "symbols": "POLYBUNNY-USDC",
+    "pairs": [
+      "0x6D5e70e5c7de5e6e451fa9db4004e942607fBF5A",
+      "0x877bA87ae1896c22c4C66cF92BFd13CfE5F3E331"
+    ]
+  },
+  {
+    "symbols": "MIMATIC-USDC",
+    "pairs": [
+      "0x8ceed6619aeFFD5476315b90eb081485dA2aEbCA",
+      "0x160532D2536175d65C03B97b0630A9802c274daD"
+    ]
+  },
+  {
+    "symbols": "DINO-USDC",
+    "pairs": [
+      "0x3324af8417844e70b81555A6D1568d78f4D4Bf1f",
+      "0x305EB24F848E3f02F13602aE93DDbB73Ac7e1958"
+    ]
+  },
+  {
+    "symbols": "TETU-USDT",
+    "pairs": [
+      "0xCA522CD609F7187C67C8B97bE0a3A3259e7BB6FF",
+      "0x696140365b6094923650b012Fa17fFECe944B6C0"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xeaCa9208121D1b5AA80eBA2fecb2f0017841265f",
+      "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xeaCa9208121D1b5AA80eBA2fecb2f0017841265f",
+      "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xeaCa9208121D1b5AA80eBA2fecb2f0017841265f",
+      "0x41ff54B8bc443B333AE0476458681ac95725C771"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9",
+      "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xc2755915a85C6f6c1C0F3a86ac8C058F11Caa9C9",
+      "0x41ff54B8bc443B333AE0476458681ac95725C771"
+    ]
+  },
+  {
+    "symbols": "WETH-USDT",
+    "pairs": [
+      "0xF6422B997c7F54D1c6a6e103bcb1499EeA0a7046",
+      "0x41ff54B8bc443B333AE0476458681ac95725C771"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDT",
+    "pairs": [
+      "0xF9875C63bae047FC819A3c2351CAf2A4B957851a",
+      "0xb1dD5322BE07fb2A40ae7fbbBac96781Ca2B0602"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDT",
+    "pairs": [
+      "0xF9875C63bae047FC819A3c2351CAf2A4B957851a",
+      "0x7847350B4C25f564B5a165389fDCeEA99e1ED3BD"
+    ]
+  },
+  {
+    "symbols": "WBTC-USDT",
+    "pairs": [
+      "0xb1dD5322BE07fb2A40ae7fbbBac96781Ca2B0602",
+      "0x7847350B4C25f564B5a165389fDCeEA99e1ED3BD"
+    ]
+  },
+  {
+    "symbols": "LINK-USDT",
+    "pairs": [
+      "0x43C355d9cE77f91b7E1A314E258246D155100be9",
+      "0xE2FeE46bd868c85A99c79f18D6C3fF441d0E3CD6"
+    ]
+  },
+  {
+    "symbols": "UNI-USDT",
+    "pairs": [
+      "0x1f7B93a86C393d7ff285332E77fdCa6c0dF2f249",
+      "0xf6c9aeb821A732284c4914b34F1b090b5Cc82DA3"
+    ]
+  },
+  {
+    "symbols": "AAVE-USDT",
+    "pairs": [
+      "0xa543Ba3fd79a03788e5521a0Ce48B3F2Bf93b2c1",
+      "0xfcf19F1BAa7d36b4b293BC096A2948a1268f020d"
+    ]
+  },
+  {
+    "symbols": "SUSHI-USDT",
+    "pairs": [
+      "0xF19144BC9B66bD9B999167B41cCb17D473419d1D",
+      "0xdAa4745705cdc72fdf274E5d75d0c22B109104D2"
+    ]
+  },
+  {
+    "symbols": "BAT-USDT",
+    "pairs": [
+      "0x0a9d9EEEee45b82d96416c5C4f6b4Ad9104544e4",
+      "0xa183ba7BE34bAC4A61139Bcf874fC56b5404Bc72"
+    ]
+  },
+  {
+    "symbols": "CRV-USDT",
+    "pairs": [
+      "0x5c26E61C6153805B073beb185319De61aDBDcB98",
+      "0x098F4Cc0d4B2eb6E440c20946bEDBA30E0c0962c"
+    ]
+  },
+  {
+    "symbols": "FISH-USDT",
+    "pairs": [
+      "0x7878c2D7a1Ed9D0785E25D3F4A28b5D2618e945B",
+      "0x06e79387118237e5faED8E585939689a3EE77Df2"
+    ]
+  },
+  {
+    "symbols": "POLYDOGE-USDT",
+    "pairs": [
+      "0x20F75C3a9b93F721b2304E50e81Ffed8D60210F8",
+      "0xb191fF4eDFE3B6AA43496F2BaDF82BE4EE32B827"
+    ]
+  },
+  {
+    "symbols": "WEXPOLY-USDT",
+    "pairs": [
+      "0x29b3249772Bc5Ee8D143a28E7dcDf962Aa463c22",
+      "0xc6D56542b5f4D3bBea53a8a634d5520F40944509"
+    ]
+  },
+  {
+    "symbols": "ICE-USDT",
+    "pairs": [
+      "0xAC2A224037e3f486D389DD4697beE2F71afEDeAF",
+      "0xc832Bb4C34109307FB90f8C575d11CeBB4396467"
+    ]
+  },
+  {
+    "symbols": "MIMATIC-USDT",
+    "pairs": [
+      "0x46563A38425BA0aaa406825AB992B704aCc894b0",
+      "0xE89faE1B4AdA2c869f05a0C96C87022DaDC7709a"
+    ]
+  },
+  {
+    "symbols": "DINO-USDT",
+    "pairs": [
+      "0x86ed2E7b03Db5F8a4697645f727bB87369aA7025",
+      "0xE3d9c9Bb95f96CB73092F4A5Ec3584aDFCFf820B"
+    ]
+  }
+]
