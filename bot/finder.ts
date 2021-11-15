@@ -112,7 +112,7 @@ async function main() {
             // });
           } catch (err: any) {
             log.error('Transaction reverted :(');
-            bans[pair0+pair1] = (new Date()).getTime() + 5*60*1000 ; // add pair to bans
+            bans[pair0+pair1] = (new Date()).getTime() + 15*60*1000 ; // add pair to bans
             // console.log('err', err);
           }
 
