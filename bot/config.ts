@@ -19,9 +19,9 @@ interface Config {
 const contractAddr = deployer.bot; // flash bot contract address
 const finderAddr = deployer.finder; // finder contract address
 const gasPrice = utils.parseUnits('100', 'gwei');
-const gasLimit = 1000000;
+const gasLimit = 1500000;
 const finderGasLimit = 15000000;
-const gasUsage = 650000; // Overall gas usage by arbitrage() func
+const gasUsage = 700000; // Overall gas usage by arbitrage() func
 
 const bscScanApiKey = deployer.polygonScan; // bsc scan API key
 // const bscScanUrl = `https://api.bscscan.com/api?module=stats&action=bnbprice&apikey=${bscScanApiKey}`;
