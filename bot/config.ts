@@ -14,6 +14,7 @@ interface Config {
   concurrency: number;
   delay: number;
   finderDelay: number;
+  banTimeMs: number;
 }
 
 const contractAddr = deployer.bot; // flash bot contract address
@@ -41,6 +42,7 @@ const config: Config = {
   bscScanUrl: bscScanUrl,
   delay: 500,
   finderDelay: 500,
+  banTimeMs: 60*60*1000
 };
 
 export default config;

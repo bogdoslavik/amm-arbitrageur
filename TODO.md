@@ -1,5 +1,5 @@
 # TODO
-- fix freeze bug
+- fix freeze bug +1
 - add top tokens from 51 to 100 [tokens](https://polygonscan.com/tokens)
 
 # LATER
