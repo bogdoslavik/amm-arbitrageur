@@ -21,6 +21,9 @@ contract ProfitFinder is ContractOwnable, Initializable {
 
     FlashBot public bot;
     address[] public pools;
+
+    address constant private _WMATIC = 0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270;
+    address constant private _WMATIC_PRICE_NORM = 2 * 10**(18-6);
     // ADD NEW VARS BELOW !!!
 
     constructor (address payable _bot) {
@@ -64,6 +67,9 @@ contract ProfitFinder is ContractOwnable, Initializable {
             address p1 = pools[i+1];
             // try for some buggy pools that can revert
             try bot.getProfit(p0, p1) returns (uint256 _profit, address _baseToken) {
+                if (_baseToken == _WMATIC) {
+                    _profit = _profit * _WMATIC_PRICE_NORM;
+                }
                 if (_profit > profit) {
                     profit = _profit;
                     baseToken = _baseToken;
