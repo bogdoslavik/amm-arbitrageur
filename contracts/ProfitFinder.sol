@@ -65,6 +65,7 @@ contract ProfitFinder is ContractOwnable, Initializable {
             address p1 = pools[i+1];
             // try for some buggy pools that can revert
             try bot.getProfit(p0, p1) returns (uint256 _profit, address _baseToken) {
+
                 if (_profit > profit) {
                     profit = _profit;
                     baseToken = _baseToken;
@@ -75,6 +76,11 @@ contract ProfitFinder is ContractOwnable, Initializable {
             } catch (bytes memory) {
             }
         }
+    }
+
+    function findProfitAndSwap() public {
+        (address pool0, address pool1, uint256 profit, ) = findProfit();
+        if (profit > 0) bot.swap(pool0, pool1);
     }
 
     function findProfitOptimized() public view

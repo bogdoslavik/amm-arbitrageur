@@ -78,6 +78,23 @@ async function main() {
     try {
       await sleep(config.finderDelay);
 
+      if (turn % 60 === 0)
+        try {
+          console.log('calling findProfitAndSwap')
+          // lock to prevent tx nonce overlap
+          // await lock.acquire('flash-bot', async () => {
+          const response = await flashBot.findProfitAndSwap({
+            gasPrice: config.gasPrice,
+            gasLimit: config.gasLimit,
+          });
+          const receipt = await response.wait(1);
+          log.info(`Tx: ${receipt.transactionHash}`);
+          // });
+        } catch (err: any) {
+          log.error('findProfitAndSwap Transaction reverted :(');
+          // console.log('err', err);
+        }
+
       [pair0, pair1, profit, baseToken] = await finder.findProfit({
         gasPrice: config.gasPrice,
         gasLimit: config.finderGasLimit,

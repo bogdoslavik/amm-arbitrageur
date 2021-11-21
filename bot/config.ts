@@ -42,7 +42,7 @@ const config: Config = {
   bscScanUrl: bscScanUrl,
   delay: 500,
   finderDelay: 500,
-  banTimeMs: 60*60*1000
+  banTimeMs: 60*60*1000,
 };
 
 export default config;
