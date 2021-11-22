@@ -4,7 +4,7 @@ module.exports = {
     script: 'npm',
     args: 'run finder',
     watch: './bot/finder.ts',
-    uid: 1000,
+    user: 'ubuntu',
     restart_delay: 10000
   }],
 
