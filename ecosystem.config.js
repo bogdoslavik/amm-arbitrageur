@@ -2,6 +2,7 @@ module.exports = {
   apps : [{
     name: 'Arbitr',
     script: 'bot/finder.ts',
+    cwd: 'bot/',
     watch: './bot/finder.ts',
     restart_delay: 10000
   }],
