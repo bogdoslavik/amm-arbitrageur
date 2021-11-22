@@ -102,9 +102,10 @@ async function main() {
         gasLimit: config.finderGasLimit,
       });
       const timeMs = time() - timeStart;
-
-      console.log(progress[turn % progress.length], turn++, `${timeMs}ms`,
-        pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
+      if (turn % 1000 === 0) {
+        console.log(progress[turn % progress.length], turn++, `${timeMs}ms`,
+          pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
+      }
       if (profit.gt(0)) {
 
         const bannedTo: number|undefined = bans[pair0+pair1];
