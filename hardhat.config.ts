@@ -12,7 +12,8 @@ import deployer from './.secret';
 // const BSC_RPC = 'https://bsc-dataseed1.ninicoin.io/';
 const BSC_RPC = 'https://bsc-dataseed3.binance.org/';
 const BSC_Testnet_RPC = 'https://data-seed-prebsc-1-s1.binance.org:8545/';
-const matic_RPC = "https://polygon-mainnet.g.alchemy.com/v2/" + deployer.alchemyKeyPolygon;
+const matic_RPC = deployer.RPC;
+
 const forks: {[index: string]:any} = {
   'bsc': BSC_RPC,
   'bsc-test': BSC_Testnet_RPC,

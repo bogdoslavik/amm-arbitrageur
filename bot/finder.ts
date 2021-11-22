@@ -78,7 +78,7 @@ async function main() {
     try {
       await sleep(config.finderDelay);
 
-      if (turn % 60 === 0)
+/*      if (turn % 600 === 0)
         try {
           console.log('calling findProfitAndSwap')
           // lock to prevent tx nonce overlap
@@ -93,13 +93,17 @@ async function main() {
         } catch (err: any) {
           log.error('findProfitAndSwap Transaction reverted :(');
           // console.log('err', err);
-        }
+        }*/
 
+      const timeStart = time();
       [pair0, pair1, profit, baseToken] = await finder.findProfit({
         gasPrice: config.gasPrice,
         gasLimit: config.finderGasLimit,
       });
-      console.log(progress[turn % progress.length], turn++, pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
+      const timeMs = time() - timeStart;
+
+      console.log(progress[turn % progress.length], turn++, `${timeMs}ms`,
+        pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
       if (profit.gt(0)) {
 
         const bannedTo: number|undefined = bans[pair0+pair1];
