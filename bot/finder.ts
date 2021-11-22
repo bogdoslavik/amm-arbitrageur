@@ -1,3 +1,4 @@
+const version = '1.0.0'
 import { ethers } from 'hardhat';
 import { BigNumber } from 'ethers';
 // import AsyncLock from 'async-lock';
@@ -68,7 +69,7 @@ async function main() {
 
   // const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
 
-  log.info('Start arbitraging');
+  log.info('Start arbitraging. Robot Version', version);
   let pair0: any, pair1: any, profit, baseToken;
   let turn = 0;
   let pairsCount = (await finder.pairsCount()).toNumber();
