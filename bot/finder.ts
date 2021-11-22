@@ -102,7 +102,7 @@ async function main() {
         gasLimit: config.finderGasLimit,
       });
       const timeMs = time() - timeStart;
-      if (turn % 1000 === 0) {
+      if (((turn++) % 10) === 0) {
         console.log(progress[turn % progress.length], turn++, `${timeMs}ms`,
           pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
       }
