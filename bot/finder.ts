@@ -69,14 +69,13 @@ async function main() {
 
   // const lock = new AsyncLock({ timeout: 2000, maxPending: 20 });
 
-  log.info('Start arbitraging. Robot Version', version);
+  log.info('Start arbitraging. Robot Version: '+version);
   let pair0: any, pair1: any, profit, baseToken;
   let turn = 0;
   let pairsCount = (await finder.pairsCount()).toNumber();
   log.info(`Finder pairs count: ${pairsCount}`);
 
   while (true) {
-    turn++;
     try {
       await sleep(config.finderDelay);
 
@@ -103,10 +102,12 @@ async function main() {
         gasLimit: config.finderGasLimit,
       });
       const timeMs = time() - timeStart;
-      if ((turn % 10) === 0) {
+      if ((turn % 1000) === 0) {
         console.log(progress[turn % progress.length], turn++, `${timeMs}ms`,
           pairToSymbols[pair0], profit.toString(), ' '.repeat(40), '\u001b[1A');
       }
+      turn++;
+
       if (profit.gt(0)) {
 
         const bannedTo: number|undefined = bans[pair0+pair1];
