@@ -19,7 +19,7 @@ interface Config {
 
 const contractAddr = deployer.bot; // flash bot contract address
 const finderAddr = deployer.finder; // finder contract address
-const gasPrice = utils.parseUnits('200', 'gwei');
+const gasPrice = utils.parseUnits('222', 'gwei');
 const gasLimit = 1500000;
 const finderGasLimit = 15000000;
 const gasUsage = 700000; // Overall gas usage by arbitrage() func
